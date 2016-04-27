@@ -268,22 +268,30 @@ export function getMouseButton(mouseEvent) {
  *
  * If supplied relatveElement parameter then return relative position based on
  *  element
- * @param {Event} mouseEvent Mouse event object
+ * @param {(MouseEvent|object|number[])} position - mouse position object
  * @param {HTMLElement} relativeElement HTML element that calculate relative
  *  position
  * @returns {number[]} mouse position
  */
-export function getMousePosition(mouseEvent, relativeElement) {
-    var rect;
+export function getMousePosition(position, relativeElement) {
+    let rect, clientX, clientY;
+
+    if (util.isArray(position)) {
+        clientX = position[0];
+        clientY = position[1];
+    } else {
+        clientX = position.clientX;
+        clientY = position.clientY;
+    }
 
     if (!relativeElement) {
-        return [mouseEvent.clientX, mouseEvent.clientY];
+        return [clientX, clientY];
     }
 
     rect = getRect(relativeElement);
 
     return [
-        mouseEvent.clientX - rect.left - relativeElement.clientLeft,
-        mouseEvent.clientY - rect.top - relativeElement.clientTop
+        clientX - rect.left - relativeElement.clientLeft,
+        clientY - rect.top - relativeElement.clientTop
     ];
 }
