@@ -6958,21 +6958,31 @@ function getMouseButton(mouseEvent) {
  *
  * If supplied relatveElement parameter then return relative position based on
  *  element
- * @param {Event} mouseEvent Mouse event object
+ * @param {(MouseEvent|object|number[])} position - mouse position object
  * @param {HTMLElement} relativeElement HTML element that calculate relative
  *  position
  * @returns {number[]} mouse position
  */
-function getMousePosition(mouseEvent, relativeElement) {
-    var rect;
+function getMousePosition(position, relativeElement) {
+    var rect = void 0,
+        clientX = void 0,
+        clientY = void 0;
+
+    if (util.isArray(position)) {
+        clientX = position[0];
+        clientY = position[1];
+    } else {
+        clientX = position.clientX;
+        clientY = position.clientY;
+    }
 
     if (!relativeElement) {
-        return [mouseEvent.clientX, mouseEvent.clientY];
+        return [clientX, clientY];
     }
 
     rect = (0, _domutil.getRect)(relativeElement);
 
-    return [mouseEvent.clientX - rect.left - relativeElement.clientLeft, mouseEvent.clientY - rect.top - relativeElement.clientTop];
+    return [clientX - rect.left - relativeElement.clientLeft, clientY - rect.top - relativeElement.clientTop];
 }
 
 },{"./domutil":300}],300:[function(require,module,exports){
