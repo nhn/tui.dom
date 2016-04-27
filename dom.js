@@ -7401,7 +7401,7 @@ function disableTextSelection() {
     var style;
 
     if (SUPPORT_SELECTSTART) {
-        domevent.on(window, 'selectstart', preventDefault);
+        domevent.on(document, 'selectstart', preventDefault);
     } else {
         style = document.documentElement.style;
         prevSelectStyle = style[userSelectProperty];
@@ -7414,7 +7414,7 @@ function disableTextSelection() {
  */
 function enableTextSelection() {
     if (SUPPORT_SELECTSTART) {
-        domevent.off(window, 'selectstart', preventDefault);
+        domevent.off(document, 'selectstart', preventDefault);
     } else {
         document.documentElement.style[userSelectProperty] = prevSelectStyle;
     }
@@ -7424,14 +7424,14 @@ function enableTextSelection() {
  * Disable browser's image drag behaviors.
  */
 function disableImageDrag() {
-    domevent.on(window, 'dragstart', preventDefault);
+    domevent.on(document, 'dragstart', preventDefault);
 }
 
 /**
  * Enable browser's image drag behaviors.
  */
 function enableImageDrag() {
-    domevent.off(window, 'dragstart', preventDefault);
+    domevent.off(document, 'dragstart', preventDefault);
 }
 
 /**
