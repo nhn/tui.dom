@@ -404,3 +404,18 @@ export function textContent(element) {
 
     return element.innerText;
 }
+
+/**
+ * Insert element to next of target element
+ * @param {HTMLElement} element - html element to insert
+ * @param {HTMLElement} target - target element
+ */
+export function insertAfter(element, target) {
+    const parent = target.parentNode;
+
+    if (target === parent.lastChild) {
+        parent.appendChild(element);
+    } else {
+        parent.insertBefore(element, target.nextSibling);
+    }
+}

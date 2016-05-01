@@ -185,4 +185,25 @@ describe('domutil', function() {
         expect(domutil.findAll('.test-class').length).toBe(2);
         expect(domutil.findAll('.test-class.test-class2')[0]).toBe($('#test4'));
     });
+
+    it('should insert element to next of another element.', function() {
+        var li = document.createElement('li');
+
+        fixture.set('<ul><li id="list-1"></li><li id="list-2"></li></ul>');
+
+        domutil.insertAfter(li, document.getElementById('list-1'));
+
+        expect(document.querySelector('li#list-1').nextSibling).toBe(li);
+    });
+
+    it('should insert element to next of another element. even if anoter' +
+            'element is last child of parent node.', function() {
+        var li = document.createElement('li');
+
+        fixture.set('<ul><li id="list-1"></li><li id="list-2"></li></ul>');
+
+        domutil.insertAfter(li, document.getElementById('list-2'));
+
+        expect(document.querySelector('li#list-2').nextSibling).toBe(li);
+    });
 });
