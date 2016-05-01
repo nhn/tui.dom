@@ -7016,6 +7016,7 @@ exports.enableTextSelection = enableTextSelection;
 exports.disableImageDrag = disableImageDrag;
 exports.enableImageDrag = enableImageDrag;
 exports.textContent = textContent;
+exports.insertAfter = insertAfter;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -7455,6 +7456,21 @@ function textContent(element) {
     }
 
     return element.innerText;
+}
+
+/**
+ * Insert element to next of target element
+ * @param {HTMLElement} element - html element to insert
+ * @param {HTMLElement} target - target element
+ */
+function insertAfter(element, target) {
+    var parent = target.parentNode;
+
+    if (target === parent.lastChild) {
+        parent.appendChild(element);
+    } else {
+        parent.insertBefore(element, target.nextSibling);
+    }
 }
 
 },{"./domevent":299}]},{},[1]);
