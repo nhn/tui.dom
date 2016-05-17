@@ -98,9 +98,10 @@ describe('domutil', function() {
     });
 
     it('can manipulate element custom data', function() {
-        var el;
+        var el, el2;
 
-        fixture.set('<div id="_test" data-test="good"></div>');
+        fixture.set('<div id="_test" data-test="good"></div>' +
+            '<span id="_test2" data-user-id="123"></span>');
 
         el = $('#_test');
 
@@ -112,6 +113,10 @@ describe('domutil', function() {
 
         domutil.removeData(el, 'test');
         expect(domutil.getData(el, 'test')).toBeFalsy();
+
+        el2 = $('#_test2');
+
+        expect(domutil.getData(el2, 'userId')).toBe('123');
     });
 
     it('should set container\'s size and position.', function() {
