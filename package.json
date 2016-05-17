@@ -1,6 +1,6 @@
 {
   "name": "dom",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "dom utility module",
   "main": "main.js",
   "scripts": {

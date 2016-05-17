@@ -7205,6 +7205,15 @@ function setData(element, key, value) {
 }
 
 /**
+ * Convert uppercase letter to hyphen lowercase character
+ * @param {string} match - match from String.prototype.replace method
+ * @returns {string}
+ */
+function upperToHyphenLower(match) {
+    return '-' + match.toLowerCase();
+}
+
+/**
  * Get data value from data-attribute
  * @param {HTMLElement} element - target element
  * @param {string} key - key
@@ -7214,6 +7223,8 @@ function getData(element, key) {
     if (element.dataset) {
         return element.dataset[key];
     }
+
+    key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
     return element.getAttribute('data-' + key);
 }
