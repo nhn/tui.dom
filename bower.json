@@ -21,7 +21,7 @@
     "samples",
     ".gitignore",
     ".eslintrc.json",
-    "index.js",
+    "main.js",
     "jsdoc-conf.json",
     "karma.conf.js",
     "package.json"
