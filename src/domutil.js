@@ -10,6 +10,10 @@ const domevent = require('./domevent');
  * @param {(HTMLElement|SVGElement)} element - element to setting style
  * @param {(string|object)} key - style prop name or {prop: value} pair object
  * @param {string} [value] - style value
+ * @name css
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function css(element, key, value) {
     const style = element.style;
@@ -29,6 +33,10 @@ export function css(element, key, value) {
  * Get HTML element's design classes.
  * @param {(HTMLElement|SVGElement)} element target element
  * @returns {string} element css class name
+ * @name getClass
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function getClass(element) {
     if (!element || !element.className) {
@@ -47,6 +55,10 @@ export function getClass(element) {
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {string} cssClass - css class
  * @returns {boolean}
+ * @name hasClass
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function hasClass(element, cssClass) {
     if (element.classList) {
@@ -62,6 +74,10 @@ export function hasClass(element, cssClass) {
  * Add css class to element
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to add
+ * @name addClass
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function addClass(element, ...cssClass) {    // eslint-disable-line
     if (element.classList) {
@@ -94,6 +110,10 @@ export function addClass(element, ...cssClass) {    // eslint-disable-line
  * Remove css class from element
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to remove
+ * @name removeClass
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function removeClass(element, ...cssClass) {    // eslint-disable-line
     if (element.classList) {
@@ -124,6 +144,10 @@ export function removeClass(element, ...cssClass) {    // eslint-disable-line
  * getBoundingClientRect polyfill
  * @param {HTMLElement} element - target element
  * @returns {object} rect object
+ * @name getRect
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function getRect(element) {
     let {top, right, bottom, left, width, height} =
@@ -142,6 +166,10 @@ export function getRect(element) {
  * @param {HTMLElement} element - element to set data attribute
  * @param {string} key - key
  * @param {string} value - value
+ * @name setData
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function setData(element, key, value) {
     if (element.dataset) {
@@ -157,6 +185,10 @@ export function setData(element, key, value) {
  * Convert uppercase letter to hyphen lowercase character
  * @param {string} match - match from String.prototype.replace method
  * @returns {string}
+ * @name upperToHyphenLower
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 function upperToHyphenLower(match) {
     return '-' + match.toLowerCase();
@@ -167,6 +199,10 @@ function upperToHyphenLower(match) {
  * @param {HTMLElement} element - target element
  * @param {string} key - key
  * @returns {string} value
+ * @name getData
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function getData(element, key) {
     if (element.dataset) {
@@ -182,6 +218,10 @@ export function getData(element, key) {
  * Remove data property
  * @param {HTMLElement} element - target element
  * @param {string} key - key
+ * @name removeData
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function removeData(element, key) {
     if (element.dataset) {
@@ -196,6 +236,10 @@ export function removeData(element, key) {
 /**
  * Remove element from parent node.
  * @param {HTMLElement} element - element to remove.
+ * @name removeElement
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function removeElement(element) {
     if (element && element.parentNode) {
@@ -213,6 +257,10 @@ export function removeElement(element) {
  * @param {number} [bound.left] - left pixel
  * @param {number} [bound.width] - width pixel
  * @param {number} [bound.height] - height pixel
+ * @name setBound
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function setBound(element, {top, right, bottom, left, width, height} = {}) {
     const args = {top, right, bottom, left, width, height};
@@ -244,6 +292,10 @@ const matchSelector = elProto.matches ||
  * @param {HTMLElement} element - element to check
  * @param {string} selector - selector to check
  * @returns {boolean} is selector matched to element?
+ * @name matches
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function matches(element, selector) {
     return matchSelector.call(element, selector);
@@ -254,6 +306,10 @@ export function matches(element, selector) {
  * @param {HTMLElement} element - base element to start find
  * @param {string} selector - selector string for find
  * @returns {HTMLElement} - element finded or null
+ * @name closest
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function closest(element, selector) {
     var parent = element.parentNode;
@@ -279,6 +335,10 @@ export function closest(element, selector) {
  * @param {(HTMLElement|string)} [element=document] - base element to find
  * @param {string} [selector] - css selector
  * @returns {HTMLElement}
+ * @name find
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function find(element, selector) {
     if (util.isString(element)) {
@@ -294,6 +354,10 @@ export function find(element, selector) {
  *  find
  * @param {string} [selector] - css selector
  * @returns {HTMLElement[]}
+ * @name findAll
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function findAll(element, selector) {
     if (util.isString(element)) {
@@ -306,6 +370,10 @@ export function findAll(element, selector) {
 /**
  * Stop event propagation.
  * @param {Event} e - event object
+ * @name stopPropagation
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function stopPropagation(e) {
     if (e.stopPropagation) {
@@ -320,6 +388,10 @@ export function stopPropagation(e) {
 /**
  * Prevent default action
  * @param {Event} e - event object
+ * @name preventDefault
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function preventDefault(e) {
     if (e.preventDefault) {
@@ -335,6 +407,10 @@ export function preventDefault(e) {
  * Check specific CSS style is available.
  * @param {array} props property name to testing
  * @returns {(string|boolean)} return true when property is available
+ * @name testCSSProp
+ * @memberof tui.domutil
+ * @function
+ * @api
  * @example
  * var props = ['transform', '-webkit-transform'];
  * domutil.testCSSProp(props);    // 'transform'
@@ -365,6 +441,10 @@ const userSelectProperty = testCSSProp([
 
 /**
  * Disable browser's text selection behaviors.
+ * @name disableTextSelection
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function disableTextSelection() {
     var style;
@@ -380,6 +460,10 @@ export function disableTextSelection() {
 
 /**
  * Enable browser's text selection behaviors.
+ * @name enableTextSelection
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function enableTextSelection() {
     if (SUPPORT_SELECTSTART) {
@@ -391,6 +475,10 @@ export function enableTextSelection() {
 
 /**
  * Disable browser's image drag behaviors.
+ * @name disableImageDrag
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function disableImageDrag() {
     domevent.on(document, 'dragstart', preventDefault);
@@ -398,6 +486,10 @@ export function disableImageDrag() {
 
 /**
  * Enable browser's image drag behaviors.
+ * @name enableImageDrag
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function enableImageDrag() {
     domevent.off(document, 'dragstart', preventDefault);
@@ -407,6 +499,10 @@ export function enableImageDrag() {
  * Represents the text content of a node and its descendants
  * @param {HTMLElement} element - html element
  * @returns {string} text content
+ * @name textContent
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function textContent(element) {
     if (util.isExisty(element.textContent)) {
@@ -420,6 +516,10 @@ export function textContent(element) {
  * Insert element to next of target element
  * @param {HTMLElement} element - html element to insert
  * @param {HTMLElement} target - target element
+ * @name insertAfter
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function insertAfter(element, target) {
     const parent = target.parentNode;

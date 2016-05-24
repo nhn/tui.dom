@@ -17,7 +17,7 @@ module.exports = function(config) {
         ],
         files: [
             'bower_components/tui-code-snippet/code-snippet.js',
-            'dom.js',
+            'domutil.js',
             'test/*.js'
         ],
         reporters: [

@@ -13,6 +13,7 @@ const EVENT_KEY = '_feEventKey';
  * @param {HTMLElement} element - HTML element
  * @param {string} [type] - event type
  * @returns {(object|Map)}
+ * @api
  */
 function safeEvent(element, type) {
     let events = element[EVENT_KEY];
@@ -41,6 +42,7 @@ function safeEvent(element, type) {
  * @param {function} keyFn - handler function that user passed at on() use
  * @param {function} valueFn - handler function that wrapped by domevent for
  *  implementing some features
+ * @api
  */
 function memorizeHandler(element, type, keyFn, valueFn) {
     var map = safeEvent(element, type),
@@ -59,6 +61,7 @@ function memorizeHandler(element, type, keyFn, valueFn) {
  * @param {HTMLElement} element - element to bind events
  * @param {string} type - events name
  * @param {function} keyFn - handler function that user passed at on() use
+ * @api
  */
 function forgetHandler(element, type, keyFn) {
     safeEvent(element, type).delete(keyFn);
@@ -71,6 +74,7 @@ function forgetHandler(element, type, keyFn) {
  * @param {function} handler - handler function or context for handler
  *  method
  * @param {object} [context] context - context for handler method.
+ * @api
  */
 function bindEvent(element, type, handler, context) {
     /**
@@ -114,6 +118,7 @@ function bindEvent(element, type, handler, context) {
  * @param {string} type - events name
  * @param {function} handler - handler function or context for handler
  *  method
+ * @api
  */
 function unbindEvent(element, type, handler) {
     const events = safeEvent(element, type);
@@ -143,6 +148,10 @@ function unbindEvent(element, type, handler) {
  * @param {(function|object)} handler - handler function or context for handler
  *  method
  * @param {object} [context] context - context for handler method.
+ * @name on
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function on(element, types, handler, context) {
     if (util.isString(types)) {
@@ -165,6 +174,10 @@ export function on(element, types, handler, context) {
  *  eventName:handler object.
  * @param {*} handler - handler function or context for handler method.
  * @param {*} [context] - context object for handler method.
+ * @name once
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function once(element, types, handler, context) {
     if (util.isObject(types)) {
@@ -190,6 +203,10 @@ export function once(element, types, handler, context) {
  *  eventName:handler object
  * @param {(function|object)} handler - handler function or context for handler
  *  method
+ * @name off
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function off(element, types, handler) {
     if (util.isString(types)) {
@@ -210,6 +227,10 @@ export function off(element, types, handler) {
  * @param {HTMLElement} element - element to check
  * @param {MouseEvent} e - mouse event
  * @returns {boolean} whether mouse leave element?
+ * @name checkMouse
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function checkMouse(element, e) {
     var related = e.relatedTarget;
@@ -241,6 +262,10 @@ export function checkMouse(element, e) {
  * - 2: secondary mouse button
  * @param {MouseEvent} mouseEvent - The mouse event object want to know.
  * @returns {number} - The value of meaning which button is clicked?
+ * @name getMouseButton
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function getMouseButton(mouseEvent) {
     const primary = '0,1,3,5,7';
@@ -272,6 +297,10 @@ export function getMouseButton(mouseEvent) {
  * @param {HTMLElement} relativeElement HTML element that calculate relative
  *  position
  * @returns {number[]} mouse position
+ * @name getMousePosition
+ * @memberof tui.domutil
+ * @function
+ * @api
  */
 export function getMousePosition(position, relativeElement) {
     let rect, clientX, clientY;
