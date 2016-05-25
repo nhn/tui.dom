@@ -1,0 +1,2 @@
+tui.util.defineNamespace("fedoc.content", {});
+fedoc.content["main.js.html"] = "      <div id=\"main\" class=\"main\">\n\n\n\n    \n    <section>\n        <article>\n            <pre class=\"prettyprint source linenums\"><code>import 'babel-polyfill';\nimport * as domutil from './src/domutil';\nimport * as domevent from './src/domevent';\n\n/** @namespace tui */\n/** @namespace tui.domutil */\n\ntui.util.defineNamespace('dom', Object.assign({}, domutil, domevent));\n</code></pre>\n        </article>\n    </section>\n\n\n\n</div>\n\n"
