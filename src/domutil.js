@@ -476,30 +476,6 @@ export function enableTextSelection(el = document) {
 }
 
 /**
- * Disable browser's image drag behaviors.
- * @param {HTMLElement} [el] - target element. if not supplied, use `document`
- * @name disableImageDrag
- * @memberof tui.domutil
- * @function
- * @api
- */
-export function disableImageDrag(el = document) {
-    domevent.on(el, 'dragstart', preventDefault);
-}
-
-/**
- * Enable browser's image drag behaviors.
- * @param {HTMLElement} [el] - target element. if not supplied, use `document`
- * @name enableImageDrag
- * @memberof tui.domutil
- * @function
- * @api
- */
-export function enableImageDrag(el = document) {
-    domevent.off(el, 'dragstart', preventDefault);
-}
-
-/**
  * Represents the text content of a node and its descendants
  * @param {HTMLElement} element - html element
  * @returns {string} text content
