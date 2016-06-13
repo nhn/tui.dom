@@ -98,13 +98,13 @@ describe('domutil', function() {
     });
 
     it('can manipulate element custom data', function() {
-        var el, el2;
+        var el, el2, el3;
 
         fixture.set('<div id="_test" data-test="good"></div>' +
-            '<span id="_test2" data-user-id="123"></span>');
+            '<span id="_test2" data-user-id="123"></span>' +
+            '<div id="_test3" data-user-name="hong"></div>');
 
         el = $('#_test');
-
         expect(domutil.getData(el, 'test')).toBe('good');
         expect(domutil.getData(el, 'noexist')).toBeFalsy();
 
@@ -115,8 +115,13 @@ describe('domutil', function() {
         expect(domutil.getData(el, 'test')).toBeFalsy();
 
         el2 = $('#_test2');
-
         expect(domutil.getData(el2, 'userId')).toBe('123');
+
+        domutil.removeData(el2, 'userId');
+        expect(domutil.getData(el2, 'userId')).toBeFalsy();
+
+        el3 = $('#_test3');
+        expect(domutil.getData(el3, 'userName')).toBe('hong');
     });
 
     it('should set container\'s size and position.', function() {
@@ -210,5 +215,16 @@ describe('domutil', function() {
         domutil.insertAfter(li, document.getElementById('list-2'));
 
         expect(document.querySelector('li#list-2').nextSibling).toBe(li);
+    });
+
+    it('should disable text selection without throw error.', function() {
+        fixture.set('<div id="prevent-selection"></div>');
+
+        expect(function() {
+          domutil.disableTextSelection($('#prevent-selection'));
+          domutil.enableTextSelection($('#prevent-selection'));
+          domutil.disableTextSelection();
+          domutil.enableTextSelection();
+        }).not.toThrowError();
     });
 });
