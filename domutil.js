@@ -7243,6 +7243,19 @@ function getRect(element) {
 }
 
 /**
+ * Convert uppercase letter to hyphen lowercase character
+ * @param {string} match - match from String.prototype.replace method
+ * @returns {string}
+ * @name upperToHyphenLower
+ * @memberof tui.domutil
+ * @function
+ * @api
+ */
+function upperToHyphenLower(match) {
+    return '-' + match.toLowerCase();
+}
+
+/**
  * Set data attribute to target element
  * @param {HTMLElement} element - element to set data attribute
  * @param {string} key - key
@@ -7259,20 +7272,9 @@ function setData(element, key, value) {
         return;
     }
 
-    element.setAttribute('data-' + key, value);
-}
+    key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
-/**
- * Convert uppercase letter to hyphen lowercase character
- * @param {string} match - match from String.prototype.replace method
- * @returns {string}
- * @name upperToHyphenLower
- * @memberof tui.domutil
- * @function
- * @api
- */
-function upperToHyphenLower(match) {
-    return '-' + match.toLowerCase();
+    element.setAttribute('data-' + key, value);
 }
 
 /**
@@ -7310,6 +7312,8 @@ function removeData(element, key) {
 
         return;
     }
+
+    key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
     element.removeAttribute('data-' + key);
 }
@@ -7538,6 +7542,7 @@ function disableTextSelection() {
     if (SUPPORT_SELECTSTART) {
         domevent.on(el, 'selectstart', preventDefault);
     } else {
+        el = el === document ? document.documentElement : el;
         style = el.style;
         prevSelectStyle = style[userSelectProperty];
         style[userSelectProperty] = 'none';
@@ -7558,6 +7563,7 @@ function enableTextSelection() {
     if (SUPPORT_SELECTSTART) {
         domevent.off(el, 'selectstart', preventDefault);
     } else {
+        el = el === document ? document.documentElement : el;
         el.style[userSelectProperty] = prevSelectStyle;
     }
 }
