@@ -162,6 +162,19 @@ export function getRect(element) {
 }
 
 /**
+ * Convert uppercase letter to hyphen lowercase character
+ * @param {string} match - match from String.prototype.replace method
+ * @returns {string}
+ * @name upperToHyphenLower
+ * @memberof tui.domutil
+ * @function
+ * @api
+ */
+function upperToHyphenLower(match) {
+    return '-' + match.toLowerCase();
+}
+
+/**
  * Set data attribute to target element
  * @param {HTMLElement} element - element to set data attribute
  * @param {string} key - key
@@ -178,20 +191,9 @@ export function setData(element, key, value) {
         return;
     }
 
-    element.setAttribute('data-' + key, value);
-}
+    key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
-/**
- * Convert uppercase letter to hyphen lowercase character
- * @param {string} match - match from String.prototype.replace method
- * @returns {string}
- * @name upperToHyphenLower
- * @memberof tui.domutil
- * @function
- * @api
- */
-function upperToHyphenLower(match) {
-    return '-' + match.toLowerCase();
+    element.setAttribute('data-' + key, value);
 }
 
 /**
@@ -229,6 +231,8 @@ export function removeData(element, key) {
 
         return;
     }
+
+    key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
     element.removeAttribute('data-' + key);
 }
@@ -441,18 +445,20 @@ const userSelectProperty = testCSSProp([
 
 /**
  * Disable browser's text selection behaviors.
+ * @param {HTMLElement} [el] - target element. if not supplied, use `document`
  * @name disableTextSelection
  * @memberof tui.domutil
  * @function
  * @api
  */
-export function disableTextSelection() {
+export function disableTextSelection(el = document) {
     var style;
 
     if (SUPPORT_SELECTSTART) {
-        domevent.on(document, 'selectstart', preventDefault);
+        domevent.on(el, 'selectstart', preventDefault);
     } else {
-        style = document.documentElement.style;
+        el = (el === document) ? document.documentElement : el;
+        style = el.style;
         prevSelectStyle = style[userSelectProperty];
         style[userSelectProperty] = 'none';
     }
@@ -460,39 +466,19 @@ export function disableTextSelection() {
 
 /**
  * Enable browser's text selection behaviors.
+ * @param {HTMLElement} [el] - target element. if not supplied, use `document`
  * @name enableTextSelection
  * @memberof tui.domutil
  * @function
  * @api
  */
-export function enableTextSelection() {
+export function enableTextSelection(el = document) {
     if (SUPPORT_SELECTSTART) {
-        domevent.off(document, 'selectstart', preventDefault);
+        domevent.off(el, 'selectstart', preventDefault);
     } else {
-        document.documentElement.style[userSelectProperty] = prevSelectStyle;
+        el = (el === document) ? document.documentElement : el;
+        el.style[userSelectProperty] = prevSelectStyle;
     }
-}
-
-/**
- * Disable browser's image drag behaviors.
- * @name disableImageDrag
- * @memberof tui.domutil
- * @function
- * @api
- */
-export function disableImageDrag() {
-    domevent.on(document, 'dragstart', preventDefault);
-}
-
-/**
- * Enable browser's image drag behaviors.
- * @name enableImageDrag
- * @memberof tui.domutil
- * @function
- * @api
- */
-export function enableImageDrag() {
-    domevent.off(document, 'dragstart', preventDefault);
 }
 
 /**
