@@ -56,6 +56,9 @@ module.exports = function(config) {
             suppressSkipped: true,
             suppressPassed: true
         },
+        coverageReporter: {
+            type: 'cobertura'
+        },
         browsers: [
             'IE8',
             'IE9',

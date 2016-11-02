@@ -33,7 +33,6 @@
     "karma-coverage": "^1.1.1",
     "karma-fixture": "^0.2.6",
     "karma-jasmine": "^1.0.2",
-    "karma-junit-reporter": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webdriver-launcher": "github:everedifice/karma-webdriver-launcher",
