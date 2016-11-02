@@ -15,6 +15,7 @@ module.exports = function(config) {
             'karma-jasmine',
             'karma-fixture',
             'karma-webpack',
+            'karma-coverage',
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
             'karma-webdriver-launcher',
@@ -48,7 +49,8 @@ module.exports = function(config) {
             noInfo: true
         },
         reporters: [
-            'spec'
+            'spec',
+            'coverage'
         ],
         specReporter: {
             suppressSkipped: true,

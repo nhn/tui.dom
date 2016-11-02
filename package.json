@@ -4,7 +4,7 @@
   "description": "dom utility module",
   "main": "src/index.js",
   "scripts": {
-    "test": "karma start",
+    "test": "NODE_ENV=test karma start",
     "bundle": "webpack && NODE_ENV=production webpack -p",
     "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json -t node_modules/fedoc-template"
   },
@@ -20,6 +20,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
+    "babel-plugin-istanbul": "^2.0.3",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-es3-member-expression-literals": "^6.5.0",
     "babel-plugin-transform-es3-property-literals": "^6.5.0",
