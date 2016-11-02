@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var isProduction = process.env.NODE_ENV === 'production';
+var version = require('./package.json').version;
 
 var config = {
     entry: './src/index.js',
@@ -18,7 +19,9 @@ var config = {
     externals: {
         'code-snippet': 'tui.util'
     },
-    plugins: []
+    plugins: [
+        new webpack.BannerPlugin(`TOAST UI DOM Library ${version}`)
+    ]
 };
 
 if (isProduction) {
@@ -26,7 +29,8 @@ if (isProduction) {
 
     const uglifyJS = new webpack.optimize.UglifyJsPlugin({
         compress: {
-            drop_console: true, warnings: false
+            drop_console: true,
+            warnings: false
         }
     });
 
