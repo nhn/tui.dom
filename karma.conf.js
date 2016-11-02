@@ -19,7 +19,8 @@ module.exports = function(config) {
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
             'karma-webdriver-launcher',
-            'karma-spec-reporter'
+            'karma-spec-reporter',
+            'karma-junit-reporter'
         ],
         frameworks: [
             'jasmine',
@@ -50,11 +51,15 @@ module.exports = function(config) {
         },
         reporters: [
             'spec',
+            'junit',
             'coverage'
         ],
         specReporter: {
             suppressSkipped: true,
             suppressPassed: true
+        },
+        junitReporter: {
+            outputDir: 'junit'
         },
         coverageReporter: {
             type: 'cobertura'

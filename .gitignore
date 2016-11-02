@@ -38,9 +38,6 @@ latest
 # sample
 sample
 
-#report
-report
-reports
-
 #etc
 .vimrc
+/junit
