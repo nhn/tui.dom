@@ -22,6 +22,8 @@ var config = {
 };
 
 if (isProduction) {
+    config.output.filename = 'domutil.min.js';
+
     const uglifyJS = new webpack.optimize.UglifyJsPlugin({
         compress: {
             drop_console: true, warnings: false
