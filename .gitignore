@@ -42,3 +42,6 @@ sample
 #report
 report
 reports
+
+#etc
+.vimrc

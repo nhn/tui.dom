@@ -1,5 +1,5 @@
 /* eslint require-jsdoc: 0 */
-var domutil = window.dom;
+import * as domutil from '../src/domutil';
 
 var NO_SVG = tui.util.browser.msie && tui.util.browser.version < 9;
 

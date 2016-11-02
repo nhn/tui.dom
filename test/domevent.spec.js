@@ -1,4 +1,4 @@
-var domevent = window.dom;
+import * as domevent from '../src/domevent';
 
 describe('The domevent module', function() {
     var btn, spy;
