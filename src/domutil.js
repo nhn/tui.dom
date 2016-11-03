@@ -132,6 +132,9 @@ export function addClass(element) {    // eslint-disable-line
  * Toggle css class
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to toggle
+ * @name toggleClass
+ * @memberof tui.dom
+ * @function
  * @api
  */
 export function toggleClass(element) {
