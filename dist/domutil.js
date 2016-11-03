@@ -1,4 +1,4 @@
-/*! TOAST UI DOM Library 2.0.2 */
+/*! TOAST UI DOM Library 2.1.0 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -91,6 +91,7 @@
 	exports.getClass = getClass;
 	exports.hasClass = hasClass;
 	exports.addClass = addClass;
+	exports.toggleClass = toggleClass;
 	exports.removeClass = removeClass;
 	exports.getRect = getRect;
 	exports.setData = setData;
@@ -122,6 +123,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	var aps = Array.prototype.slice;
+	var trim = function trim(str) {
+	    return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	};
 
 	/**
 	 * Setting element style
@@ -189,6 +193,24 @@
 	}
 
 	/**
+	 * Set className value
+	 * @param {(HTMLElement|SVGElement)} element - target element
+	 * @param {(string|string[])} cssClass - class names
+	 */
+	function setClassName(element, cssClass) {
+	    cssClass = _codeSnippet2['default'].isArray(cssClass) ? cssClass.join(' ') : cssClass;
+
+	    cssClass = trim(cssClass);
+
+	    if (_codeSnippet2['default'].isUndefined(element.className.baseVal)) {
+	        element.className = cssClass;
+	        return;
+	    }
+
+	    element.className.baseVal = cssClass;
+	}
+
+	/**
 	 * Add css class to element
 	 * @param {(HTMLElement|SVGElement)} element - target element
 	 * @param {...string} cssClass - css classes to add
@@ -229,14 +251,37 @@
 	        }
 	    });
 
-	    newClass = newClass.join(' ');
+	    setClassName(element, newClass);
+	}
 
-	    if (_codeSnippet2['default'].isUndefined(element.className.baseVal)) {
-	        element.className = newClass;
+	/**
+	 * Toggle css class
+	 * @param {(HTMLElement|SVGElement)} element - target element
+	 * @param {...string} cssClass - css classes to toggle
+	 */
+	function toggleClass(element) {
+	    var cssClass = aps.call(arguments, 1);
+
+	    if (element.classList) {
+	        _codeSnippet2['default'].forEach(cssClass, function (name) {
+	            element.classList.toggle(name);
+	        });
 	        return;
 	    }
 
-	    element.className.baseVal = newClass;
+	    var newClass = getClass(element).split(/\s+/);
+
+	    _codeSnippet2['default'].forEach(cssClass, function (name) {
+	        var idx = _codeSnippet2['default'].inArray(name, newClass);
+
+	        if (idx > -1) {
+	            newClass.splice(idx, 1);
+	        } else {
+	            newClass.push(name);
+	        }
+	    });
+
+	    setClassName(element, newClass);
 	}
 
 	/**
@@ -268,18 +313,12 @@
 	    }
 
 	    var origin = getClass(element).split(/\s+/);
-	    var classes = _codeSnippet2['default'].filter(origin, function (name) {
+
+	    var newClass = _codeSnippet2['default'].filter(origin, function (name) {
 	        return _codeSnippet2['default'].inArray(name, cssClass) < 0;
 	    });
-	    var newClass = classes.join(' ');
 
-	    if (_codeSnippet2['default'].isUndefined(element.className.baseVal)) {
-	        element.className = newClass;
-
-	        return;
-	    }
-
-	    element.className.baseVal = newClass;
+	    setClassName(element, newClass);
 	}
 
 	/**
