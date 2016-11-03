@@ -13,7 +13,7 @@ A module for manipulating the DOM or control the DOM events.
 
 ## Documentation
 
-**API** : https://nhnent.github.io/tui.domutil/latest
+**API** : https://nhnent.github.io/tui.dom/latest
 
 ## Dependency
 
