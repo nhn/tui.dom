@@ -1,5 +1,5 @@
 {
-  "name": "dom",
+  "name": "tui-dom",
   "version": "2.0.2",
   "description": "dom utility module",
   "main": "src/index.js",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.nhnent.com/fe/dom.git"
+    "url": "https://github.nhnent.com/fe/tui.dom.git"
   },
   "keywords": [
     "DOM"
   ],
-  "author": "NHNEnt FE Development Team <dl_javascript@nhnent.com>",
+  "author": "NHNEnt FE Development Lab <dl_javascript@nhnent.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.18.2",

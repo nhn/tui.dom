@@ -6,6 +6,7 @@ import util from 'code-snippet';
 import * as domevent from './domevent';
 
 const aps = Array.prototype.slice;
+const trim = str => str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 
 /**
  * Setting element style
@@ -73,6 +74,24 @@ export function hasClass(element, cssClass) {
 }
 
 /**
+ * Set className value
+ * @param {(HTMLElement|SVGElement)} element - target element
+ * @param {(string|string[])} cssClass - class names
+ */
+function setClassName(element, cssClass) {
+    cssClass = util.isArray(cssClass) ? cssClass.join(' ') : cssClass;
+
+    cssClass = trim(cssClass);
+
+    if (util.isUndefined(element.className.baseVal)) {
+        element.className = cssClass;
+        return;
+    }
+
+    element.className.baseVal = cssClass;
+}
+
+/**
  * Add css class to element
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to add
@@ -98,7 +117,7 @@ export function addClass(element) {    // eslint-disable-line
         cssClass = [].concat(origin.split(/\s+/), cssClass);
     }
 
-    let newClass = [];
+    const newClass = [];
 
     util.forEach(cssClass, cls => {
         if (util.inArray(cls, newClass) < 0) {
@@ -106,14 +125,37 @@ export function addClass(element) {    // eslint-disable-line
         }
     });
 
-    newClass = newClass.join(' ');
+    setClassName(element, newClass);
+}
 
-    if (util.isUndefined(element.className.baseVal)) {
-        element.className = newClass;
+/**
+ * Toggle css class
+ * @param {(HTMLElement|SVGElement)} element - target element
+ * @param {...string} cssClass - css classes to toggle
+ */
+export function toggleClass(element) {
+    let cssClass = aps.call(arguments, 1);
+
+    if (element.classList) {
+        util.forEach(cssClass, name => {
+            element.classList.toggle(name);
+        });
         return;
     }
 
-    element.className.baseVal = newClass;
+    const newClass = getClass(element).split(/\s+/);
+
+    util.forEach(cssClass, name => {
+        const idx = util.inArray(name, newClass);
+
+        if (idx > -1) {
+            newClass.splice(idx, 1);
+        } else {
+            newClass.push(name);
+        }
+    });
+
+    setClassName(element, newClass);
 }
 
 /**
@@ -138,18 +180,12 @@ export function removeClass(element) {    // eslint-disable-line
     }
 
     const origin = getClass(element).split(/\s+/);
-    const classes = util.filter(origin, name => {
+
+    const newClass = util.filter(origin, name => {
         return util.inArray(name, cssClass) < 0;
     });
-    const newClass = classes.join(' ');
 
-    if (util.isUndefined(element.className.baseVal)) {
-        element.className = newClass;
-
-        return;
-    }
-
-    element.className.baseVal = newClass;
+    setClassName(element, newClass);
 }
 
 /**

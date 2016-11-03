@@ -12,7 +12,7 @@
         "default": {
             "outputSourceFiles" : true
         },
-        "applicationName": "Document Title",
+        "applicationName": "TOAST UI Dom library",
         "disqus": "",
         "googleAnalytics": "",
         "openGraph": {
