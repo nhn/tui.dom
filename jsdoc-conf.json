@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["main.js", "src", "README.md"],
+        "include": ["src", "README.md"],
         "exclude": [],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
@@ -12,7 +12,7 @@
         "default": {
             "outputSourceFiles" : true
         },
-        "applicationName": "Document Title",
+        "applicationName": "TOAST UI Dom library",
         "disqus": "",
         "googleAnalytics": "",
         "openGraph": {
@@ -36,6 +36,6 @@
     "opts": {
         "recurse": true,
         "destination": "doc",
-        "name": "tui.domutil"
+        "name": "tui.dom"
     }
 }

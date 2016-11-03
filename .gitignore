@@ -32,13 +32,12 @@ bower_components
 .idea
 
 # compress
-dist
 doc
 latest
 
 # sample
 sample
 
-#report
-report
-reports
+#etc
+.vimrc
+/junit

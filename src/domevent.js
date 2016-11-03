@@ -3,9 +3,9 @@
  * @fileoverview Module for handle DOM events
  * @author NHN Ent. FE Development Team <dl_javascript@nhnent.com>
  */
+import util from 'code-snippet';
 import {getRect} from './domutil';
 
-const util = tui.util;
 const EVENT_KEY = '_feEventKey';
 
 /**
@@ -13,7 +13,6 @@ const EVENT_KEY = '_feEventKey';
  * @param {HTMLElement} element - HTML element
  * @param {string} [type] - event type
  * @returns {(object|Map)}
- * @api
  */
 function safeEvent(element, type) {
     let events = element[EVENT_KEY];
@@ -42,7 +41,6 @@ function safeEvent(element, type) {
  * @param {function} keyFn - handler function that user passed at on() use
  * @param {function} valueFn - handler function that wrapped by domevent for
  *  implementing some features
- * @api
  */
 function memorizeHandler(element, type, keyFn, valueFn) {
     var map = safeEvent(element, type),
@@ -61,7 +59,6 @@ function memorizeHandler(element, type, keyFn, valueFn) {
  * @param {HTMLElement} element - element to bind events
  * @param {string} type - events name
  * @param {function} keyFn - handler function that user passed at on() use
- * @api
  */
 function forgetHandler(element, type, keyFn) {
     safeEvent(element, type).delete(keyFn);
@@ -74,7 +71,6 @@ function forgetHandler(element, type, keyFn) {
  * @param {function} handler - handler function or context for handler
  *  method
  * @param {object} [context] context - context for handler method.
- * @api
  */
 function bindEvent(element, type, handler, context) {
     /**
@@ -118,7 +114,6 @@ function bindEvent(element, type, handler, context) {
  * @param {string} type - events name
  * @param {function} handler - handler function or context for handler
  *  method
- * @api
  */
 function unbindEvent(element, type, handler) {
     const events = safeEvent(element, type);
@@ -130,7 +125,7 @@ function unbindEvent(element, type, handler) {
 
     forgetHandler(element, type, handler);
 
-    items.forEach(func => {
+    util.forEach(items, func => {
         if ('removeEventListener' in element) {
             element.removeEventListener(type, func);
         } else if ('detachEvent' in element) {
@@ -149,13 +144,13 @@ function unbindEvent(element, type, handler) {
  *  method
  * @param {object} [context] context - context for handler method.
  * @name on
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
 export function on(element, types, handler, context) {
     if (util.isString(types)) {
-        types.split(/\s+/g).forEach(type => {
+        util.forEach(types.split(/\s+/g), type => {
             bindEvent(element, type, handler, context);
         });
 
@@ -175,7 +170,7 @@ export function on(element, types, handler, context) {
  * @param {*} handler - handler function or context for handler method.
  * @param {*} [context] - context object for handler method.
  * @name once
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -204,13 +199,13 @@ export function once(element, types, handler, context) {
  * @param {(function|object)} handler - handler function or context for handler
  *  method
  * @name off
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
 export function off(element, types, handler) {
     if (util.isString(types)) {
-        types.split(/\s+/g).forEach(type => {
+        util.forEach(types.split(/\s+/g), type => {
             unbindEvent(element, type, handler);
         });
 
@@ -228,7 +223,7 @@ export function off(element, types, handler) {
  * @param {MouseEvent} e - mouse event
  * @returns {boolean} whether mouse leave element?
  * @name checkMouse
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -263,7 +258,7 @@ export function checkMouse(element, e) {
  * @param {MouseEvent} mouseEvent - The mouse event object want to know.
  * @returns {number} - The value of meaning which button is clicked?
  * @name getMouseButton
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -277,11 +272,11 @@ export function getMouseButton(mouseEvent) {
     }
 
     let button = String(mouseEvent.button);
-    if (primary.indexOf(button) > -1) {
+    if (util.inArray(button, primary) > -1) {
         return 0;
-    } else if (secondary.indexOf(button) > -1) {
+    } else if (util.inArray(button, secondary) > -1) {
         return 2;
-    } else if (wheel.indexOf(button) > -1) {
+    } else if (util.inArray(button, wheel) > -1) {
         return 1;
     }
 
@@ -298,7 +293,7 @@ export function getMouseButton(mouseEvent) {
  *  position
  * @returns {number[]} mouse position
  * @name getMousePosition
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */

@@ -2,8 +2,11 @@
  * @fileoverview DOM manipulation utility module
  * @author NHN Ent. FE Development team <dl_javascript@nhnent.com>
  */
-const util = tui.util;
-const domevent = require('./domevent');
+import util from 'code-snippet';
+import * as domevent from './domevent';
+
+const aps = Array.prototype.slice;
+const trim = str => str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 
 /**
  * Setting element style
@@ -11,7 +14,7 @@ const domevent = require('./domevent');
  * @param {(string|object)} key - style prop name or {prop: value} pair object
  * @param {string} [value] - style value
  * @name css
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -34,7 +37,7 @@ export function css(element, key, value) {
  * @param {(HTMLElement|SVGElement)} element target element
  * @returns {string} element css class name
  * @name getClass
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -56,7 +59,7 @@ export function getClass(element) {
  * @param {string} cssClass - css class
  * @returns {boolean}
  * @name hasClass
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -67,7 +70,25 @@ export function hasClass(element, cssClass) {
 
     let origin = getClass(element).split(/\s+/);
 
-    return origin.indexOf(cssClass) > -1;
+    return util.inArray(cssClass, origin) > -1;
+}
+
+/**
+ * Set className value
+ * @param {(HTMLElement|SVGElement)} element - target element
+ * @param {(string|string[])} cssClass - class names
+ */
+function setClassName(element, cssClass) {
+    cssClass = util.isArray(cssClass) ? cssClass.join(' ') : cssClass;
+
+    cssClass = trim(cssClass);
+
+    if (util.isUndefined(element.className.baseVal)) {
+        element.className = cssClass;
+        return;
+    }
+
+    element.className.baseVal = cssClass;
 }
 
 /**
@@ -75,35 +96,66 @@ export function hasClass(element, cssClass) {
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to add
  * @name addClass
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
-export function addClass(element, ...cssClass) {    // eslint-disable-line
+export function addClass(element) {    // eslint-disable-line
+    let cssClass = aps.call(arguments, 1);
+
     if (element.classList) {
         const classList = element.classList;
-        cssClass.forEach(name => {
+        util.forEach(cssClass, name => {
             classList.add(name);
         });
-
         return;
     }
 
     const origin = getClass(element);
 
     if (origin) {
-        cssClass = [...origin.split(/\s+/), ...cssClass];
+        cssClass = [].concat(origin.split(/\s+/), cssClass);
     }
 
-    const newClass = [...new Set(cssClass)].join(' ');
+    const newClass = [];
 
-    if (util.isUndefined(element.className.baseVal)) {
-        element.className = newClass;
+    util.forEach(cssClass, cls => {
+        if (util.inArray(cls, newClass) < 0) {
+            newClass.push(cls);
+        }
+    });
 
+    setClassName(element, newClass);
+}
+
+/**
+ * Toggle css class
+ * @param {(HTMLElement|SVGElement)} element - target element
+ * @param {...string} cssClass - css classes to toggle
+ */
+export function toggleClass(element) {
+    let cssClass = aps.call(arguments, 1);
+
+    if (element.classList) {
+        util.forEach(cssClass, name => {
+            element.classList.toggle(name);
+        });
         return;
     }
 
-    element.className.baseVal = newClass;
+    const newClass = getClass(element).split(/\s+/);
+
+    util.forEach(cssClass, name => {
+        const idx = util.inArray(name, newClass);
+
+        if (idx > -1) {
+            newClass.splice(idx, 1);
+        } else {
+            newClass.push(name);
+        }
+    });
+
+    setClassName(element, newClass);
 }
 
 /**
@@ -111,14 +163,16 @@ export function addClass(element, ...cssClass) {    // eslint-disable-line
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to remove
  * @name removeClass
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
-export function removeClass(element, ...cssClass) {    // eslint-disable-line
+export function removeClass(element) {    // eslint-disable-line
+    let cssClass = aps.call(arguments, 1);
+
     if (element.classList) {
         const classList = element.classList;
-        cssClass.forEach(name => {
+        util.forEach(cssClass, name => {
             classList.remove(name);
         });
 
@@ -126,18 +180,12 @@ export function removeClass(element, ...cssClass) {    // eslint-disable-line
     }
 
     const origin = getClass(element).split(/\s+/);
-    const classes = origin.filter(name => {
-        return cssClass.indexOf(name) < 0;
+
+    const newClass = util.filter(origin, name => {
+        return util.inArray(name, cssClass) < 0;
     });
-    const newClass = classes.join(' ');
 
-    if (util.isUndefined(element.className.baseVal)) {
-        element.className = newClass;
-
-        return;
-    }
-
-    element.className.baseVal = newClass;
+    setClassName(element, newClass);
 }
 
 /**
@@ -145,7 +193,7 @@ export function removeClass(element, ...cssClass) {    // eslint-disable-line
  * @param {HTMLElement} element - target element
  * @returns {object} rect object
  * @name getRect
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -166,7 +214,7 @@ export function getRect(element) {
  * @param {string} match - match from String.prototype.replace method
  * @returns {string}
  * @name upperToHyphenLower
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -180,7 +228,7 @@ function upperToHyphenLower(match) {
  * @param {string} key - key
  * @param {string} value - value
  * @name setData
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -202,7 +250,7 @@ export function setData(element, key, value) {
  * @param {string} key - key
  * @returns {string} value
  * @name getData
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -221,7 +269,7 @@ export function getData(element, key) {
  * @param {HTMLElement} element - target element
  * @param {string} key - key
  * @name removeData
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -241,7 +289,7 @@ export function removeData(element, key) {
  * Remove element from parent node.
  * @param {HTMLElement} element - element to remove.
  * @name removeElement
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -262,7 +310,7 @@ export function removeElement(element) {
  * @param {number} [bound.width] - width pixel
  * @param {number} [bound.height] - height pixel
  * @name setBound
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -276,7 +324,7 @@ export function setBound(element, {top, right, bottom, left, width, height} = {}
         }
     });
 
-    Object.assign(element.style, newBound);
+    util.extend(element.style, newBound);
 }
 
 const elProto = Element.prototype;
@@ -286,9 +334,7 @@ const matchSelector = elProto.matches ||
     elProto.msMatchesSelector ||
     function(selector) {
         const doc = this.document || this.ownerDocument;
-        const match = findAll(doc, selector).find(el => this === el);
-
-        return !!match;
+        return util.inArray(this, findAll(doc, selector)) > -1;
     };
 
 /**
@@ -297,7 +343,7 @@ const matchSelector = elProto.matches ||
  * @param {string} selector - selector to check
  * @returns {boolean} is selector matched to element?
  * @name matches
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -311,7 +357,7 @@ export function matches(element, selector) {
  * @param {string} selector - selector string for find
  * @returns {HTMLElement} - element finded or null
  * @name closest
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -340,7 +386,7 @@ export function closest(element, selector) {
  * @param {string} [selector] - css selector
  * @returns {HTMLElement}
  * @name find
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -359,23 +405,23 @@ export function find(element, selector) {
  * @param {string} [selector] - css selector
  * @returns {HTMLElement[]}
  * @name findAll
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
 export function findAll(element, selector) {
     if (util.isString(element)) {
-        return [...document.querySelectorAll(element)];
+        return util.toArray(document.querySelectorAll(element));
     }
 
-    return [...element.querySelectorAll(selector)];
+    return util.toArray(element.querySelectorAll(selector));
 }
 
 /**
  * Stop event propagation.
  * @param {Event} e - event object
  * @name stopPropagation
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -393,7 +439,7 @@ export function stopPropagation(e) {
  * Prevent default action
  * @param {Event} e - event object
  * @name preventDefault
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -412,7 +458,7 @@ export function preventDefault(e) {
  * @param {array} props property name to testing
  * @returns {(string|boolean)} return true when property is available
  * @name testCSSProp
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  * @example
@@ -447,7 +493,7 @@ const userSelectProperty = testCSSProp([
  * Disable browser's text selection behaviors.
  * @param {HTMLElement} [el] - target element. if not supplied, use `document`
  * @name disableTextSelection
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -468,7 +514,7 @@ export function disableTextSelection(el = document) {
  * Enable browser's text selection behaviors.
  * @param {HTMLElement} [el] - target element. if not supplied, use `document`
  * @name enableTextSelection
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -486,7 +532,7 @@ export function enableTextSelection(el = document) {
  * @param {HTMLElement} element - html element
  * @returns {string} text content
  * @name textContent
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */
@@ -503,7 +549,7 @@ export function textContent(element) {
  * @param {HTMLElement} element - html element to insert
  * @param {HTMLElement} target - target element
  * @name insertAfter
- * @memberof tui.domutil
+ * @memberof tui.dom
  * @function
  * @api
  */

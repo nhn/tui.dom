@@ -1,5 +1,5 @@
 /* eslint require-jsdoc: 0 */
-var domutil = window.dom;
+import * as domutil from '../src/domutil';
 
 var NO_SVG = tui.util.browser.msie && tui.util.browser.version < 9;
 
@@ -226,5 +226,23 @@ describe('domutil', function() {
           domutil.disableTextSelection();
           domutil.enableTextSelection();
         }).not.toThrowError();
+    });
+
+    it('should toggle specific class names.', () => {
+        fixture.set(`<div id="target" class="alpha beta gamma"></div>
+<div id="target2" class="alpha"></div>
+<div id="target3"></div>`);
+
+        const div = document.getElementById('target');
+        domutil.toggleClass(div, 'beta', 'zeta');
+        expect(div.getAttribute('class')).toBe('alpha gamma zeta');
+
+        const div2 = document.getElementById('target2');
+        domutil.toggleClass(div2, 'alpha');
+        expect(div2.getAttribute('class')).toBe('');
+
+        const div3 = document.getElementById('target3');
+        domutil.toggleClass(div3, 'beta');
+        expect(div3.getAttribute('class')).toBe('beta');
     });
 });
