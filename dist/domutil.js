@@ -258,6 +258,7 @@
 	 * Toggle css class
 	 * @param {(HTMLElement|SVGElement)} element - target element
 	 * @param {...string} cssClass - css classes to toggle
+	 * @api
 	 */
 	function toggleClass(element) {
 	    var cssClass = aps.call(arguments, 1);
