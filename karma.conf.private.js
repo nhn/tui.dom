@@ -11,17 +11,6 @@ module.exports = function(config) {
         singleRun: true,
         concurrency: Infinity,
         logLevel: config.LOG_INFO,
-        plugins: [
-            'karma-jasmine',
-            'karma-fixture',
-            'karma-webpack',
-            'karma-coverage',
-            'karma-sourcemap-loader',
-            'karma-chrome-launcher',
-            'karma-webdriver-launcher',
-            'karma-spec-reporter',
-            'karma-junit-reporter'
-        ],
         frameworks: [
             'jasmine',
             'fixture'

@@ -1,12 +1,19 @@
 var webpack = require('webpack');
 var isProduction = process.env.NODE_ENV === 'production';
-var version = require('./package.json').version;
+var pkg = require('./package.json');
+
+var banner = [
+    ' ' + pkg.name,
+    ' @author ' + pkg.author,
+    ' @version v' + pkg.version,
+    ' @license ' + pkg.license
+].join('\n');
 
 var config = {
     entry: './src/index.js',
     output: {
-        path: __dirname + '/dist',
-        filename: 'domutil.js'
+        path: 'dist',
+        filename: pkg.name + '.js'
     },
     module: {
         noParse: /bower_components\/.*\/*.js/,
@@ -20,16 +27,16 @@ var config = {
         'code-snippet': 'tui.util'
     },
     plugins: [
-        new webpack.BannerPlugin(`TOAST UI DOM Library ${version}`)
+        new webpack.BannerPlugin(banner)
     ]
 };
 
 if (isProduction) {
-    config.output.filename = 'domutil.min.js';
+    config.output.filename = pkg.name + '.min.js';
 
     const uglifyJS = new webpack.optimize.UglifyJsPlugin({
         compress: {
-            drop_console: true,
+            'drop_console': true,
             warnings: false
         }
     });

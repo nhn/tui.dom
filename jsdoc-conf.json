@@ -7,35 +7,12 @@
     },
     "plugins": ["plugins/markdown"],
     "templates": {
-        "cleverLinks": true,
-        "monospaceLinks": true,
-        "default": {
-            "outputSourceFiles" : true
-        },
-        "applicationName": "TOAST UI Dom library",
-        "disqus": "",
-        "googleAnalytics": "",
-        "openGraph": {
-            "title": "",
-            "type": "website",
-            "image": "",
-            "site_name": "",
-            "url": ""
-        },
-        "meta": {
-            "title": "",
-            "description": "",
-            "keyword": ""
-        },
-        "linenums": false
-    },
-    "markdown": {
-        "parser": "gfm",
-        "hardwrap": true
+        "name": "Dom"
     },
     "opts": {
         "recurse": true,
         "destination": "doc",
-        "name": "tui.dom"
+        "template": "node_modules/tui-jsdoc-template",
+        "package": "package.json"
     }
 }

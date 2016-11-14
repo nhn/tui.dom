@@ -30,13 +30,13 @@ A module for manipulating the DOM or control the DOM events.
 ## Download/Install
 
 * Bower:
-   * Latest : `bower install tui-dom#master`
+   * Latest : `bower install tui-dom`
    * Each Version : `bower install tui-dom[#tag]`
 * Download: https://github.nhnent.com/fe/tui.dom
 
 ## LICENSE
 
-[MIT LICENSE](LICENSE)
+[MIT LICENSE](https://github.com/nhnent/tui.dom/blob/master/LICENSE)
 
 ## Sponsor
 

@@ -1,6 +1,6 @@
 /**
  * @fileoverview DOM manipulation utility module
- * @author NHN Ent. FE Development team <dl_javascript@nhnent.com>
+ * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
 import util from 'code-snippet';
 import * as domevent from './domevent';
@@ -77,6 +77,7 @@ export function hasClass(element, cssClass) {
  * Set className value
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {(string|string[])} cssClass - class names
+ * @ignore
  */
 function setClassName(element, cssClass) {
     cssClass = util.isArray(cssClass) ? cssClass.join(' ') : cssClass;
@@ -98,7 +99,6 @@ function setClassName(element, cssClass) {
  * @name addClass
  * @memberof tui.dom
  * @function
- * @api
  */
 export function addClass(element) {    // eslint-disable-line
     let cssClass = aps.call(arguments, 1);
@@ -135,7 +135,6 @@ export function addClass(element) {    // eslint-disable-line
  * @name toggleClass
  * @memberof tui.dom
  * @function
- * @api
  */
 export function toggleClass(element) {
     let cssClass = aps.call(arguments, 1);
@@ -169,7 +168,6 @@ export function toggleClass(element) {
  * @name removeClass
  * @memberof tui.dom
  * @function
- * @api
  */
 export function removeClass(element) {    // eslint-disable-line
     let cssClass = aps.call(arguments, 1);
@@ -199,7 +197,6 @@ export function removeClass(element) {    // eslint-disable-line
  * @name getRect
  * @memberof tui.dom
  * @function
- * @api
  */
 export function getRect(element) {
     let {top, right, bottom, left, width, height} =
@@ -220,7 +217,6 @@ export function getRect(element) {
  * @name upperToHyphenLower
  * @memberof tui.dom
  * @function
- * @api
  */
 function upperToHyphenLower(match) {
     return '-' + match.toLowerCase();
@@ -234,7 +230,6 @@ function upperToHyphenLower(match) {
  * @name setData
  * @memberof tui.dom
  * @function
- * @api
  */
 export function setData(element, key, value) {
     if (element.dataset) {
@@ -256,7 +251,6 @@ export function setData(element, key, value) {
  * @name getData
  * @memberof tui.dom
  * @function
- * @api
  */
 export function getData(element, key) {
     if (element.dataset) {
@@ -275,7 +269,6 @@ export function getData(element, key) {
  * @name removeData
  * @memberof tui.dom
  * @function
- * @api
  */
 export function removeData(element, key) {
     if (element.dataset) {
@@ -295,7 +288,6 @@ export function removeData(element, key) {
  * @name removeElement
  * @memberof tui.dom
  * @function
- * @api
  */
 export function removeElement(element) {
     if (element && element.parentNode) {
@@ -316,7 +308,6 @@ export function removeElement(element) {
  * @name setBound
  * @memberof tui.dom
  * @function
- * @api
  */
 export function setBound(element, {top, right, bottom, left, width, height} = {}) {
     const args = {top, right, bottom, left, width, height};
@@ -349,7 +340,6 @@ const matchSelector = elProto.matches ||
  * @name matches
  * @memberof tui.dom
  * @function
- * @api
  */
 export function matches(element, selector) {
     return matchSelector.call(element, selector);
@@ -363,7 +353,6 @@ export function matches(element, selector) {
  * @name closest
  * @memberof tui.dom
  * @function
- * @api
  */
 export function closest(element, selector) {
     var parent = element.parentNode;
@@ -392,7 +381,6 @@ export function closest(element, selector) {
  * @name find
  * @memberof tui.dom
  * @function
- * @api
  */
 export function find(element, selector) {
     if (util.isString(element)) {
@@ -411,7 +399,6 @@ export function find(element, selector) {
  * @name findAll
  * @memberof tui.dom
  * @function
- * @api
  */
 export function findAll(element, selector) {
     if (util.isString(element)) {
@@ -427,7 +414,6 @@ export function findAll(element, selector) {
  * @name stopPropagation
  * @memberof tui.dom
  * @function
- * @api
  */
 export function stopPropagation(e) {
     if (e.stopPropagation) {
@@ -445,7 +431,6 @@ export function stopPropagation(e) {
  * @name preventDefault
  * @memberof tui.dom
  * @function
- * @api
  */
 export function preventDefault(e) {
     if (e.preventDefault) {
@@ -464,7 +449,6 @@ export function preventDefault(e) {
  * @name testCSSProp
  * @memberof tui.dom
  * @function
- * @api
  * @example
  * var props = ['transform', '-webkit-transform'];
  * domutil.testCSSProp(props);    // 'transform'
@@ -499,7 +483,6 @@ const userSelectProperty = testCSSProp([
  * @name disableTextSelection
  * @memberof tui.dom
  * @function
- * @api
  */
 export function disableTextSelection(el = document) {
     var style;
@@ -520,7 +503,6 @@ export function disableTextSelection(el = document) {
  * @name enableTextSelection
  * @memberof tui.dom
  * @function
- * @api
  */
 export function enableTextSelection(el = document) {
     if (SUPPORT_SELECTSTART) {
@@ -538,7 +520,6 @@ export function enableTextSelection(el = document) {
  * @name textContent
  * @memberof tui.dom
  * @function
- * @api
  */
 export function textContent(element) {
     if (util.isExisty(element.textContent)) {
@@ -555,7 +536,6 @@ export function textContent(element) {
  * @name insertAfter
  * @memberof tui.dom
  * @function
- * @api
  */
 export function insertAfter(element, target) {
     const parent = target.parentNode;

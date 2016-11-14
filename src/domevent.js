@@ -1,12 +1,17 @@
 /**
  * DOM event utility module.
  * @fileoverview Module for handle DOM events
- * @author NHN Ent. FE Development Team <dl_javascript@nhnent.com>
+ * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
 import util from 'code-snippet';
 import {getRect} from './domutil';
 
 const EVENT_KEY = '_feEventKey';
+
+/**
+ * @module
+ * @ignore
+ */
 
 /**
  * Get event collection for specific HTML element
@@ -146,7 +151,6 @@ function unbindEvent(element, type, handler) {
  * @name on
  * @memberof tui.dom
  * @function
- * @api
  */
 export function on(element, types, handler, context) {
     if (util.isString(types)) {
@@ -172,7 +176,6 @@ export function on(element, types, handler, context) {
  * @name once
  * @memberof tui.dom
  * @function
- * @api
  */
 export function once(element, types, handler, context) {
     if (util.isObject(types)) {
@@ -201,7 +204,6 @@ export function once(element, types, handler, context) {
  * @name off
  * @memberof tui.dom
  * @function
- * @api
  */
 export function off(element, types, handler) {
     if (util.isString(types)) {
@@ -225,7 +227,6 @@ export function off(element, types, handler) {
  * @name checkMouse
  * @memberof tui.dom
  * @function
- * @api
  */
 export function checkMouse(element, e) {
     var related = e.relatedTarget;
@@ -260,7 +261,6 @@ export function checkMouse(element, e) {
  * @name getMouseButton
  * @memberof tui.dom
  * @function
- * @api
  */
 export function getMouseButton(mouseEvent) {
     const primary = '0,1,3,5,7';
@@ -295,7 +295,6 @@ export function getMouseButton(mouseEvent) {
  * @name getMousePosition
  * @memberof tui.dom
  * @function
- * @api
  */
 export function getMousePosition(position, relativeElement) {
     let rect, clientX, clientY;

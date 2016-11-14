@@ -1,4 +1,9 @@
-/*! TOAST UI DOM Library 2.1.0 */
+/*!
+ *  tui-dom
+ *  @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
+ *  @version v2.1.1
+ *  @license MIT
+ */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,8 +68,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	/** @namespace tui */
-	/** @namespace tui.dom */
+	/**
+	 * @namespace tui.dom
+	 * @desc DOM manipulation utilities
+	 * @example
+	 * tui.dom.addClass(element, 'foo', 'bar');
+	 */
 	_codeSnippet2['default'].defineNamespace('tui.dom', _codeSnippet2['default'].extend({}, domutil, domevent));
 
 /***/ },
@@ -83,7 +92,7 @@
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                                               * @fileoverview DOM manipulation utility module
-	                                                                                                                                                                                                                                                                               * @author NHN Ent. FE Development team <dl_javascript@nhnent.com>
+	                                                                                                                                                                                                                                                                               * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
 	                                                                                                                                                                                                                                                                               */
 
 
@@ -196,6 +205,7 @@
 	 * Set className value
 	 * @param {(HTMLElement|SVGElement)} element - target element
 	 * @param {(string|string[])} cssClass - class names
+	 * @ignore
 	 */
 	function setClassName(element, cssClass) {
 	    cssClass = _codeSnippet2['default'].isArray(cssClass) ? cssClass.join(' ') : cssClass;
@@ -217,7 +227,6 @@
 	 * @name addClass
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function addClass(element) {
 	    // eslint-disable-line
@@ -261,7 +270,6 @@
 	 * @name toggleClass
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function toggleClass(element) {
 	    var cssClass = aps.call(arguments, 1);
@@ -295,7 +303,6 @@
 	 * @name removeClass
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function removeClass(element) {
 	    // eslint-disable-line
@@ -332,7 +339,6 @@
 	 * @name getRect
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function getRect(element) {
 	    var _element$getBoundingC = element.getBoundingClientRect(),
@@ -358,7 +364,6 @@
 	 * @name upperToHyphenLower
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function upperToHyphenLower(match) {
 	    return '-' + match.toLowerCase();
@@ -372,7 +377,6 @@
 	 * @name setData
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function setData(element, key, value) {
 	    if (element.dataset) {
@@ -394,7 +398,6 @@
 	 * @name getData
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function getData(element, key) {
 	    if (element.dataset) {
@@ -413,7 +416,6 @@
 	 * @name removeData
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function removeData(element, key) {
 	    if (element.dataset) {
@@ -433,7 +435,6 @@
 	 * @name removeElement
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function removeElement(element) {
 	    if (element && element.parentNode) {
@@ -454,7 +455,6 @@
 	 * @name setBound
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function setBound(element) {
 	    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
@@ -491,7 +491,6 @@
 	 * @name matches
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function matches(element, selector) {
 	    return matchSelector.call(element, selector);
@@ -505,7 +504,6 @@
 	 * @name closest
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function closest(element, selector) {
 	    var parent = element.parentNode;
@@ -533,7 +531,6 @@
 	 * @name find
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function find(element, selector) {
 	    if (_codeSnippet2['default'].isString(element)) {
@@ -552,7 +549,6 @@
 	 * @name findAll
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function findAll(element, selector) {
 	    if (_codeSnippet2['default'].isString(element)) {
@@ -568,7 +564,6 @@
 	 * @name stopPropagation
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function stopPropagation(e) {
 	    if (e.stopPropagation) {
@@ -586,7 +581,6 @@
 	 * @name preventDefault
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function preventDefault(e) {
 	    if (e.preventDefault) {
@@ -605,7 +599,6 @@
 	 * @name testCSSProp
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 * @example
 	 * var props = ['transform', '-webkit-transform'];
 	 * domutil.testCSSProp(props);    // 'transform'
@@ -634,7 +627,6 @@
 	 * @name disableTextSelection
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function disableTextSelection() {
 	    var el = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
@@ -657,7 +649,6 @@
 	 * @name enableTextSelection
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function enableTextSelection() {
 	    var el = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
@@ -677,7 +668,6 @@
 	 * @name textContent
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function textContent(element) {
 	    if (_codeSnippet2['default'].isExisty(element.textContent)) {
@@ -694,7 +684,6 @@
 	 * @name insertAfter
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function insertAfter(element, target) {
 	    var parent = target.parentNode;
@@ -717,7 +706,7 @@
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * DOM event utility module.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @fileoverview Module for handle DOM events
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @author NHN Ent. FE Development Team <dl_javascript@nhnent.com>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
 
 
@@ -737,6 +726,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	var EVENT_KEY = '_feEventKey';
+
+	/**
+	 * @module
+	 * @ignore
+	 */
 
 	/**
 	 * Get event collection for specific HTML element
@@ -875,7 +869,6 @@
 	 * @name on
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function on(element, types, handler, context) {
 	    if (_codeSnippet2['default'].isString(types)) {
@@ -901,7 +894,6 @@
 	 * @name once
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function once(element, types, handler, context) {
 	    if (_codeSnippet2['default'].isObject(types)) {
@@ -957,7 +949,6 @@
 	 * @name off
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function off(element, types, handler) {
 	    if (_codeSnippet2['default'].isString(types)) {
@@ -981,7 +972,6 @@
 	 * @name checkMouse
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function checkMouse(element, e) {
 	    var related = e.relatedTarget;
@@ -1016,7 +1006,6 @@
 	 * @name getMouseButton
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function getMouseButton(mouseEvent) {
 	    var primary = '0,1,3,5,7';
@@ -1051,7 +1040,6 @@
 	 * @name getMousePosition
 	 * @memberof tui.dom
 	 * @function
-	 * @api
 	 */
 	function getMousePosition(position, relativeElement) {
 	    var rect = void 0,
