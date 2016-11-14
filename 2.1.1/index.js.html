@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,56 +42,22 @@
 
 
     
-
-
-
-
-
-
-
-
-
-    
-
-
     <section>
-        <article class="readme"><h1>TOAST UI Dom library</h1><p>A module for manipulating the DOM or control the DOM events.</p>
-<h2>Feature</h2><ul>
-<li>Module that can control the information of DOM</li>
-<li>Add, remove, find DOM class name</li>
-<li>DOM events module</li>
-<li>Add, remove, fire DOM events</li>
-<li>Control mouse events</li>
-</ul>
-<h2>Documentation</h2><p><strong>API</strong> : https://nhnent.github.io/tui.dom/latest</p>
-<h2>Dependency</h2><ul>
-<li>tui-code-snippet: 1.2.2</li>
-</ul>
-<h2>Test environment</h2><ul>
-<li>browser<ul>
-<li>IE8+</li>
-<li>Edge</li>
-<li>Chrome</li>
-<li>Firefox</li>
-</ul>
-</li>
-</ul>
-<h2>Download/Install</h2><ul>
-<li>Bower:<ul>
-<li>Latest : <code>bower install tui-dom</code></li>
-<li>Each Version : <code>bower install tui-dom[#tag]</code></li>
-</ul>
-</li>
-<li>Download: https://github.nhnent.com/fe/tui.dom</li>
-</ul>
-<h2>LICENSE</h2><p><a href="https://github.com/nhnent/tui.dom/blob/master/LICENSE">MIT LICENSE</a></p>
-<h2>Sponsor</h2><ul>
-<li><img src="https://cloud.githubusercontent.com/assets/12269563/12287774/8cf4d2c0-ba12-11e5-9fa8-0a9c452cca05.png" height="30"><br>
-<a href="https://www.browserstack.com/">BrowserStack</a> is a cloud based cross browser testing tool</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import util from 'code-snippet';
+import * as domutil from './domutil';
+import * as domevent from './domevent';
+
+/**
+ * @namespace tui.dom
+ * @desc DOM manipulation utilities
+ * @example
+ * tui.dom.addClass(element, 'foo', 'bar');
+ */
+util.defineNamespace('tui.dom', util.extend({}, domutil, domevent));
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
@@ -106,7 +74,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'package:tui-dom_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var element = document.getElementById(id); // do not use jquery selector
 
         $(element).removeClass('hidden');
