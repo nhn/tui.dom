@@ -92,4 +92,11 @@ describe('The domevent module', function() {
         expect(domevent.getMousePosition(mouseEvent, relativeElement))
             .toEqual([30 - pos.left, 30 - pos.top]);
     });
+
+    it('should distinguish which mouse button was clicked.', function() {
+        spyOn(document.implementation, 'hasFeature').and.returnValue(false);
+        expect(domevent.getMouseButton({button: 0})).toBe(0);
+        expect(domevent.getMouseButton({button: 2})).toBe(2);
+        expect(domevent.getMouseButton({button: 4})).toBe(1);
+    });
 });

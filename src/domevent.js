@@ -246,6 +246,10 @@ export function checkMouse(element, e) {
     return (related !== element);
 }
 
+const primaryButton = ['0', '1', '3', '5', '7'];
+const secondaryButton = ['2' ,'6'];
+const wheelButton = ['4'];
+
 /**
  * Normalize mouse event's button attributes.
  *
@@ -263,20 +267,17 @@ export function checkMouse(element, e) {
  * @function
  */
 export function getMouseButton(mouseEvent) {
-    const primary = '0,1,3,5,7';
-    const secondary = '2,6';
-    const wheel = '4';
-
     if (document.implementation.hasFeature('MouseEvents', '2.0')) {
         return mouseEvent.button;
     }
 
     let button = String(mouseEvent.button);
-    if (util.inArray(button, primary) > -1) {
+
+    if (util.inArray(button, primaryButton) > -1) {
         return 0;
-    } else if (util.inArray(button, secondary) > -1) {
+    } else if (util.inArray(button, secondaryButton) > -1) {
         return 2;
-    } else if (util.inArray(button, wheel) > -1) {
+    } else if (util.inArray(button, wheelButton) > -1) {
         return 1;
     }
 
