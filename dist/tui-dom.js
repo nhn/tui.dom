@@ -1,7 +1,7 @@
 /*!
  *  tui-dom
  *  @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
- *  @version v2.1.1
+ *  @version v2.1.2
  *  @license MIT
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -991,6 +991,10 @@
 	    return related !== element;
 	}
 
+	var primaryButton = ['0', '1', '3', '5', '7'];
+	var secondaryButton = ['2', '6'];
+	var wheelButton = ['4'];
+
 	/**
 	 * Normalize mouse event's button attributes.
 	 *
@@ -1008,20 +1012,17 @@
 	 * @function
 	 */
 	function getMouseButton(mouseEvent) {
-	    var primary = '0,1,3,5,7';
-	    var secondary = '2,6';
-	    var wheel = '4';
-
 	    if (document.implementation.hasFeature('MouseEvents', '2.0')) {
 	        return mouseEvent.button;
 	    }
 
 	    var button = String(mouseEvent.button);
-	    if (_codeSnippet2['default'].inArray(button, primary) > -1) {
+
+	    if (_codeSnippet2['default'].inArray(button, primaryButton) > -1) {
 	        return 0;
-	    } else if (_codeSnippet2['default'].inArray(button, secondary) > -1) {
+	    } else if (_codeSnippet2['default'].inArray(button, secondaryButton) > -1) {
 	        return 2;
-	    } else if (_codeSnippet2['default'].inArray(button, wheel) > -1) {
+	    } else if (_codeSnippet2['default'].inArray(button, wheelButton) > -1) {
 	        return 1;
 	    }
 
