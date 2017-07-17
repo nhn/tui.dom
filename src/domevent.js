@@ -3,7 +3,7 @@
  * @fileoverview Module for handle DOM events
  * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
-import util from 'code-snippet';
+import util from 'tui-code-snippet';
 import {getRect} from './domutil';
 
 const EVENT_KEY = '_feEventKey';

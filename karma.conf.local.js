@@ -10,7 +10,6 @@ module.exports = function(config) {
             'fixture'
         ],
         files: [
-            'bower_components/tui-code-snippet/code-snippet.js',
             'test/*.spec.js'
         ],
         preprocessors: {
@@ -24,9 +23,6 @@ module.exports = function(config) {
                     exclude: /(node_modules|bower_components)/,
                     loader: 'babel'
                 }]
-            },
-            externals: {
-                'code-snippet': 'tui.util'
             }
         },
         webpackMiddleware: {

@@ -2,7 +2,7 @@
  * @fileoverview DOM manipulation utility module
  * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
-import util from 'code-snippet';
+import util from 'tui-code-snippet';
 import * as domevent from './domevent';
 
 const aps = Array.prototype.slice;

@@ -4,7 +4,17 @@
  *  @version v2.1.2
  *  @license MIT
  */
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("tui-code-snippet"));
+	else if(typeof define === 'function' && define.amd)
+		define(["tui-code-snippet"], factory);
+	else if(typeof exports === 'object')
+		exports["dom"] = factory(require("tui-code-snippet"));
+	else
+		root["tui"] = root["tui"] || {}, root["tui"]["dom"] = factory((root["tui"] && root["tui"]["util"]));
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -48,13 +58,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _codeSnippet = __webpack_require__(1);
+	var _tuiCodeSnippet = __webpack_require__(1);
 
-	var _codeSnippet2 = _interopRequireDefault(_codeSnippet);
+	var _tuiCodeSnippet2 = _interopRequireDefault(_tuiCodeSnippet);
 
 	var _domutil = __webpack_require__(2);
 
@@ -74,28 +84,22 @@
 	 * @example
 	 * tui.dom.addClass(element, 'foo', 'bar');
 	 */
-	_codeSnippet2['default'].defineNamespace('tui.dom', _codeSnippet2['default'].extend({}, domutil, domevent));
+	// util.defineNamespace('tui.dom', util.extend({}, domutil, domevent));
+	module.exports = _tuiCodeSnippet2['default'].extend({}, domutil, domevent);
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	module.exports = tui.util;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * @fileoverview DOM manipulation utility module
-	                                                                                                                                                                                                                                                                               * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
-	                                                                                                                                                                                                                                                                               */
-
-
 	exports.css = css;
 	exports.getClass = getClass;
 	exports.hasClass = hasClass;
@@ -119,9 +123,9 @@
 	exports.textContent = textContent;
 	exports.insertAfter = insertAfter;
 
-	var _codeSnippet = __webpack_require__(1);
+	var _tuiCodeSnippet = __webpack_require__(1);
 
-	var _codeSnippet2 = _interopRequireDefault(_codeSnippet);
+	var _tuiCodeSnippet2 = _interopRequireDefault(_tuiCodeSnippet);
 
 	var _domevent = __webpack_require__(3);
 
@@ -131,6 +135,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+	/**
+	 * @fileoverview DOM manipulation utility module
+	 * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
+	 */
 	var aps = Array.prototype.slice;
 	var trim = function trim(str) {
 	    return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
@@ -149,13 +157,13 @@
 	function css(element, key, value) {
 	    var style = element.style;
 
-	    if (_codeSnippet2['default'].isString(key)) {
+	    if (_tuiCodeSnippet2['default'].isString(key)) {
 	        style[key] = value;
 
 	        return;
 	    }
 
-	    _codeSnippet2['default'].forEach(key, function (v, k) {
+	    _tuiCodeSnippet2['default'].forEach(key, function (v, k) {
 	        style[k] = v;
 	    });
 	}
@@ -174,7 +182,7 @@
 	        return '';
 	    }
 
-	    if (_codeSnippet2['default'].isUndefined(element.className.baseVal)) {
+	    if (_tuiCodeSnippet2['default'].isUndefined(element.className.baseVal)) {
 	        return element.className;
 	    }
 
@@ -198,7 +206,7 @@
 
 	    var origin = getClass(element).split(/\s+/);
 
-	    return _codeSnippet2['default'].inArray(cssClass, origin) > -1;
+	    return _tuiCodeSnippet2['default'].inArray(cssClass, origin) > -1;
 	}
 
 	/**
@@ -208,11 +216,11 @@
 	 * @ignore
 	 */
 	function setClassName(element, cssClass) {
-	    cssClass = _codeSnippet2['default'].isArray(cssClass) ? cssClass.join(' ') : cssClass;
+	    cssClass = _tuiCodeSnippet2['default'].isArray(cssClass) ? cssClass.join(' ') : cssClass;
 
 	    cssClass = trim(cssClass);
 
-	    if (_codeSnippet2['default'].isUndefined(element.className.baseVal)) {
+	    if (_tuiCodeSnippet2['default'].isUndefined(element.className.baseVal)) {
 	        element.className = cssClass;
 	        return;
 	    }
@@ -233,17 +241,11 @@
 	    var cssClass = aps.call(arguments, 1);
 
 	    if (element.classList) {
-	        var _ret = function () {
-	            var classList = element.classList;
-	            _codeSnippet2['default'].forEach(cssClass, function (name) {
-	                classList.add(name);
-	            });
-	            return {
-	                v: void 0
-	            };
-	        }();
-
-	        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	        var classList = element.classList;
+	        _tuiCodeSnippet2['default'].forEach(cssClass, function (name) {
+	            classList.add(name);
+	        });
+	        return;
 	    }
 
 	    var origin = getClass(element);
@@ -254,8 +256,8 @@
 
 	    var newClass = [];
 
-	    _codeSnippet2['default'].forEach(cssClass, function (cls) {
-	        if (_codeSnippet2['default'].inArray(cls, newClass) < 0) {
+	    _tuiCodeSnippet2['default'].forEach(cssClass, function (cls) {
+	        if (_tuiCodeSnippet2['default'].inArray(cls, newClass) < 0) {
 	            newClass.push(cls);
 	        }
 	    });
@@ -275,7 +277,7 @@
 	    var cssClass = aps.call(arguments, 1);
 
 	    if (element.classList) {
-	        _codeSnippet2['default'].forEach(cssClass, function (name) {
+	        _tuiCodeSnippet2['default'].forEach(cssClass, function (name) {
 	            element.classList.toggle(name);
 	        });
 	        return;
@@ -283,8 +285,8 @@
 
 	    var newClass = getClass(element).split(/\s+/);
 
-	    _codeSnippet2['default'].forEach(cssClass, function (name) {
-	        var idx = _codeSnippet2['default'].inArray(name, newClass);
+	    _tuiCodeSnippet2['default'].forEach(cssClass, function (name) {
+	        var idx = _tuiCodeSnippet2['default'].inArray(name, newClass);
 
 	        if (idx > -1) {
 	            newClass.splice(idx, 1);
@@ -309,24 +311,18 @@
 	    var cssClass = aps.call(arguments, 1);
 
 	    if (element.classList) {
-	        var _ret2 = function () {
-	            var classList = element.classList;
-	            _codeSnippet2['default'].forEach(cssClass, function (name) {
-	                classList.remove(name);
-	            });
+	        var classList = element.classList;
+	        _tuiCodeSnippet2['default'].forEach(cssClass, function (name) {
+	            classList.remove(name);
+	        });
 
-	            return {
-	                v: void 0
-	            };
-	        }();
-
-	        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+	        return;
 	    }
 
 	    var origin = getClass(element).split(/\s+/);
 
-	    var newClass = _codeSnippet2['default'].filter(origin, function (name) {
-	        return _codeSnippet2['default'].inArray(name, cssClass) < 0;
+	    var newClass = _tuiCodeSnippet2['default'].filter(origin, function (name) {
+	        return _tuiCodeSnippet2['default'].inArray(name, cssClass) < 0;
 	    });
 
 	    setClassName(element, newClass);
@@ -349,7 +345,7 @@
 	        width = _element$getBoundingC.width,
 	        height = _element$getBoundingC.height;
 
-	    if (_codeSnippet2['default'].isUndefined(width) || _codeSnippet2['default'].isUndefined(height)) {
+	    if (_tuiCodeSnippet2['default'].isUndefined(width) || _tuiCodeSnippet2['default'].isUndefined(height)) {
 	        width = element.offsetWidth;
 	        height = element.offsetHeight;
 	    }
@@ -468,19 +464,19 @@
 	    var args = { top: top, right: right, bottom: bottom, left: left, width: width, height: height };
 	    var newBound = {};
 
-	    _codeSnippet2['default'].forEach(args, function (value, prop) {
-	        if (_codeSnippet2['default'].isExisty(value)) {
-	            newBound[prop] = _codeSnippet2['default'].isNumber(value) ? value + 'px' : value;
+	    _tuiCodeSnippet2['default'].forEach(args, function (value, prop) {
+	        if (_tuiCodeSnippet2['default'].isExisty(value)) {
+	            newBound[prop] = _tuiCodeSnippet2['default'].isNumber(value) ? value + 'px' : value;
 	        }
 	    });
 
-	    _codeSnippet2['default'].extend(element.style, newBound);
+	    _tuiCodeSnippet2['default'].extend(element.style, newBound);
 	}
 
 	var elProto = Element.prototype;
 	var matchSelector = elProto.matches || elProto.webkitMatchesSelector || elProto.mozMatchesSelector || elProto.msMatchesSelector || function (selector) {
 	    var doc = this.document || this.ownerDocument;
-	    return _codeSnippet2['default'].inArray(this, findAll(doc, selector)) > -1;
+	    return _tuiCodeSnippet2['default'].inArray(this, findAll(doc, selector)) > -1;
 	};
 
 	/**
@@ -533,7 +529,7 @@
 	 * @function
 	 */
 	function find(element, selector) {
-	    if (_codeSnippet2['default'].isString(element)) {
+	    if (_tuiCodeSnippet2['default'].isString(element)) {
 	        return document.querySelector(element);
 	    }
 
@@ -551,11 +547,11 @@
 	 * @function
 	 */
 	function findAll(element, selector) {
-	    if (_codeSnippet2['default'].isString(element)) {
-	        return _codeSnippet2['default'].toArray(document.querySelectorAll(element));
+	    if (_tuiCodeSnippet2['default'].isString(element)) {
+	        return _tuiCodeSnippet2['default'].toArray(document.querySelectorAll(element));
 	    }
 
-	    return _codeSnippet2['default'].toArray(element.querySelectorAll(selector));
+	    return _tuiCodeSnippet2['default'].toArray(element.querySelectorAll(selector));
 	}
 
 	/**
@@ -670,7 +666,7 @@
 	 * @function
 	 */
 	function textContent(element) {
-	    if (_codeSnippet2['default'].isExisty(element.textContent)) {
+	    if (_tuiCodeSnippet2['default'].isExisty(element.textContent)) {
 	        return element.textContent;
 	    }
 
@@ -695,9 +691,9 @@
 	    }
 	}
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -717,9 +713,9 @@
 	exports.getMouseButton = getMouseButton;
 	exports.getMousePosition = getMousePosition;
 
-	var _codeSnippet = __webpack_require__(1);
+	var _tuiCodeSnippet = __webpack_require__(1);
 
-	var _codeSnippet2 = _interopRequireDefault(_codeSnippet);
+	var _tuiCodeSnippet2 = _interopRequireDefault(_tuiCodeSnippet);
 
 	var _domutil = __webpack_require__(2);
 
@@ -749,7 +745,7 @@
 	        var handlerMap = events[type];
 
 	        if (!handlerMap) {
-	            handlerMap = events[type] = new _codeSnippet2['default'].Map();
+	            handlerMap = events[type] = new _tuiCodeSnippet2['default'].Map();
 	        }
 
 	        events = handlerMap;
@@ -849,7 +845,7 @@
 
 	    forgetHandler(element, type, handler);
 
-	    _codeSnippet2['default'].forEach(items, function (func) {
+	    _tuiCodeSnippet2['default'].forEach(items, function (func) {
 	        if ('removeEventListener' in element) {
 	            element.removeEventListener(type, func);
 	        } else if ('detachEvent' in element) {
@@ -871,15 +867,15 @@
 	 * @function
 	 */
 	function on(element, types, handler, context) {
-	    if (_codeSnippet2['default'].isString(types)) {
-	        _codeSnippet2['default'].forEach(types.split(/\s+/g), function (type) {
+	    if (_tuiCodeSnippet2['default'].isString(types)) {
+	        _tuiCodeSnippet2['default'].forEach(types.split(/\s+/g), function (type) {
 	            bindEvent(element, type, handler, context);
 	        });
 
 	        return;
 	    }
 
-	    _codeSnippet2['default'].forEach(types, function (func, type) {
+	    _tuiCodeSnippet2['default'].forEach(types, function (func, type) {
 	        bindEvent(element, type, func, handler);
 	    });
 	}
@@ -896,7 +892,7 @@
 	 * @function
 	 */
 	function once(element, types, handler, context) {
-	    if (_codeSnippet2['default'].isObject(types)) {
+	    if (_tuiCodeSnippet2['default'].isObject(types)) {
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
@@ -951,15 +947,15 @@
 	 * @function
 	 */
 	function off(element, types, handler) {
-	    if (_codeSnippet2['default'].isString(types)) {
-	        _codeSnippet2['default'].forEach(types.split(/\s+/g), function (type) {
+	    if (_tuiCodeSnippet2['default'].isString(types)) {
+	        _tuiCodeSnippet2['default'].forEach(types.split(/\s+/g), function (type) {
 	            unbindEvent(element, type, handler);
 	        });
 
 	        return;
 	    }
 
-	    _codeSnippet2['default'].forEach(types, function (func, type) {
+	    _tuiCodeSnippet2['default'].forEach(types, function (func, type) {
 	        unbindEvent(element, type, func);
 	    });
 	}
@@ -1018,11 +1014,11 @@
 
 	    var button = String(mouseEvent.button);
 
-	    if (_codeSnippet2['default'].inArray(button, primaryButton) > -1) {
+	    if (_tuiCodeSnippet2['default'].inArray(button, primaryButton) > -1) {
 	        return 0;
-	    } else if (_codeSnippet2['default'].inArray(button, secondaryButton) > -1) {
+	    } else if (_tuiCodeSnippet2['default'].inArray(button, secondaryButton) > -1) {
 	        return 2;
-	    } else if (_codeSnippet2['default'].inArray(button, wheelButton) > -1) {
+	    } else if (_tuiCodeSnippet2['default'].inArray(button, wheelButton) > -1) {
 	        return 1;
 	    }
 
@@ -1047,7 +1043,7 @@
 	        clientX = void 0,
 	        clientY = void 0;
 
-	    if (_codeSnippet2['default'].isArray(position)) {
+	    if (_tuiCodeSnippet2['default'].isArray(position)) {
 	        clientX = position[0];
 	        clientY = position[1];
 	    } else {
@@ -1064,5 +1060,7 @@
 	    return [clientX - rect.left - relativeElement.clientLeft, clientY - rect.top - relativeElement.clientTop];
 	}
 
-/***/ }
-/******/ ]);
+/***/ })
+/******/ ])
+});
+;

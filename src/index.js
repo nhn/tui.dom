@@ -1,4 +1,4 @@
-import util from 'code-snippet';
+import util from 'tui-code-snippet';
 import * as domutil from './domutil';
 import * as domevent from './domevent';
 
@@ -8,4 +8,5 @@ import * as domevent from './domevent';
  * @example
  * tui.dom.addClass(element, 'foo', 'bar');
  */
-util.defineNamespace('tui.dom', util.extend({}, domutil, domevent));
+// util.defineNamespace('tui.dom', util.extend({}, domutil, domevent));
+module.exports = util.extend({}, domutil, domevent);

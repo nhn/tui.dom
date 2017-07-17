@@ -9,9 +9,13 @@ var banner = [
     ' @license ' + pkg.license
 ].join('\n');
 
+var SafeUmdPlugin = require('safe-umd-webpack-plugin');
+
 var config = {
     entry: './src/index.js',
     output: {
+        libraryTarget: 'umd',
+        library: ['tui', 'dom'],
         path: 'dist',
         filename: pkg.name + '.js'
     },
@@ -24,10 +28,16 @@ var config = {
         }]
     },
     externals: {
-        'code-snippet': 'tui.util'
+        'tui-code-snippet': {
+            'commonjs': 'tui-code-snippet',
+            'commonjs2': 'tui-code-snippet',
+            'amd': 'tui-code-snippet',
+            'root': ['tui', 'util']
+        }
     },
     plugins: [
-        new webpack.BannerPlugin(banner)
+        new webpack.BannerPlugin(banner),
+        new SafeUmdPlugin()
     ]
 };
 

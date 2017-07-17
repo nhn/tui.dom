@@ -1,7 +1,8 @@
 /* eslint require-jsdoc: 0 */
+import util from 'tui-code-snippet';
 import * as domutil from '../src/domutil';
 
-var NO_SVG = tui.util.browser.msie && tui.util.browser.version < 9;
+var NO_SVG = util.browser.msie && util.browser.version < 9;
 
 function $(selector) {
     return document.querySelector(selector);
