@@ -526,7 +526,7 @@ export function enableTextSelection(el = document) {
  * @function
  */
 export function textContent(element) {
-    if (util.isExisty(element.textContent)) {
+    if (snippet.isExisty(element.textContent)) {
         return element.textContent;
     }
 
