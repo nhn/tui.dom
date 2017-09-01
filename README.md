@@ -1,5 +1,4 @@
-TOAST UI Dom library
-===============
+# TOAST UI Dom library
 
 A module for manipulating the DOM or control the DOM events.
 
@@ -13,32 +12,66 @@ A module for manipulating the DOM or control the DOM events.
 
 ## Documentation
 
-**API** : https://nhnent.github.io/tui.dom/latest
+* **API** : [https://nhnent.github.io/tui.dom/latest](https://nhnent.github.io/tui.dom/latest)
+* **Tutorial** : [https://github.com/nhnent/tui.dom/wiki](https://github.com/nhnent/tui.dom/wiki)
 
 ## Dependency
 
-* tui-code-snippet: 1.2.2
+* [tui-code-snippet](https://github.com/nhnent/tui.code-snippet): ^1.2.5
 
 ## Test environment
+### PC
+* IE8~11
+* Edge
+* Chrome
+* Firefox
+* Safari
 
-* browser
-    * IE8+
-    * Edge
-    * Chrome
-    * Firefox
+## Usage
+### Use `npm`
 
-## Download/Install
+Install the latest version using `npm` command:
 
-* Bower:
-   * Latest : `bower install tui-dom`
-   * Each Version : `bower install tui-dom[#tag]`
-* Download: https://github.nhnent.com/fe/tui.dom
+```
+$ npm install tui-dom --save
+```
 
-## LICENSE
+or want to install the each version:
 
+```
+$ npm install tui-dom@<version> --save
+```
+
+To access as module format in your code:
+
+```javascript
+var domUtil = require('tui-dom');
+domUtil.addClass(element, 'candies');
+```
+
+### Use `bower`
+Install the latest version using `bower` command:
+
+```
+$ bower install tui-dom
+```
+
+or want to install the each version:
+
+```
+$ bower install tui-dom#<tag>
+```
+
+To access as namespace format in your code:
+
+```javascript
+var domUtil = tui.dom;
+domUtil.addClass(element, 'candies');
+```
+
+### Download
+* [Download bundle files from `dist` folder](https://github.com/nhnent/tui.dom/tree/production/dist)
+* [Download all sources for each version](https://github.com/nhnent/tui.dom/releases)
+
+## License
 [MIT LICENSE](https://github.com/nhnent/tui.dom/blob/master/LICENSE)
-
-## Sponsor
-
-* <img src="https://cloud.githubusercontent.com/assets/12269563/12287774/8cf4d2c0-ba12-11e5-9fa8-0a9c452cca05.png" height="30"><br>
- [BrowserStack](https://www.browserstack.com/) is a cloud based cross browser testing tool

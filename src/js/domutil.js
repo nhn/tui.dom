@@ -2,8 +2,8 @@
  * @fileoverview DOM manipulation utility module
  * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
-import util from 'tui-code-snippet';
 import * as domevent from './domevent';
+import snippet from 'tui-code-snippet';
 
 const aps = Array.prototype.slice;
 const trim = str => str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
@@ -19,15 +19,15 @@ const trim = str => str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
  * @api
  */
 export function css(element, key, value) {
-    const style = element.style;
+    const {style} = element;
 
-    if (util.isString(key)) {
+    if (snippet.isString(key)) {
         style[key] = value;
 
         return;
     }
 
-    util.forEach(key, function(v, k) {
+    snippet.forEach(key, (v, k) => {
         style[k] = v;
     });
 }
@@ -46,7 +46,7 @@ export function getClass(element) {
         return '';
     }
 
-    if (util.isUndefined(element.className.baseVal)) {
+    if (snippet.isUndefined(element.className.baseVal)) {
         return element.className;
     }
 
@@ -68,9 +68,9 @@ export function hasClass(element, cssClass) {
         return element.classList.contains(cssClass);
     }
 
-    let origin = getClass(element).split(/\s+/);
+    const origin = getClass(element).split(/\s+/);
 
-    return util.inArray(cssClass, origin) > -1;
+    return snippet.inArray(cssClass, origin) > -1;
 }
 
 /**
@@ -80,11 +80,11 @@ export function hasClass(element, cssClass) {
  * @ignore
  */
 function setClassName(element, cssClass) {
-    cssClass = util.isArray(cssClass) ? cssClass.join(' ') : cssClass;
+    cssClass = snippet.isArray(cssClass) ? cssClass.join(' ') : cssClass;
 
     cssClass = trim(cssClass);
 
-    if (util.isUndefined(element.className.baseVal)) {
+    if (snippet.isUndefined(element.className.baseVal)) {
         element.className = cssClass;
         return;
     }
@@ -100,12 +100,12 @@ function setClassName(element, cssClass) {
  * @memberof tui.dom
  * @function
  */
-export function addClass(element) {    // eslint-disable-line
-    let cssClass = aps.call(arguments, 1);
+export function addClass(element) {
+    let cssClass = aps.call(arguments, 1); // eslint-disable-line prefer-rest-params
 
     if (element.classList) {
-        const classList = element.classList;
-        util.forEach(cssClass, name => {
+        const {classList} = element;
+        snippet.forEach(cssClass, name => {
             classList.add(name);
         });
         return;
@@ -119,8 +119,8 @@ export function addClass(element) {    // eslint-disable-line
 
     const newClass = [];
 
-    util.forEach(cssClass, cls => {
-        if (util.inArray(cls, newClass) < 0) {
+    snippet.forEach(cssClass, cls => {
+        if (snippet.inArray(cls, newClass) < 0) {
             newClass.push(cls);
         }
     });
@@ -137,10 +137,10 @@ export function addClass(element) {    // eslint-disable-line
  * @function
  */
 export function toggleClass(element) {
-    let cssClass = aps.call(arguments, 1);
+    const cssClass = aps.call(arguments, 1); // eslint-disable-line prefer-rest-params
 
     if (element.classList) {
-        util.forEach(cssClass, name => {
+        snippet.forEach(cssClass, name => {
             element.classList.toggle(name);
         });
         return;
@@ -148,8 +148,8 @@ export function toggleClass(element) {
 
     const newClass = getClass(element).split(/\s+/);
 
-    util.forEach(cssClass, name => {
-        const idx = util.inArray(name, newClass);
+    snippet.forEach(cssClass, name => {
+        const idx = snippet.inArray(name, newClass);
 
         if (idx > -1) {
             newClass.splice(idx, 1);
@@ -170,11 +170,11 @@ export function toggleClass(element) {
  * @function
  */
 export function removeClass(element) {    // eslint-disable-line
-    let cssClass = aps.call(arguments, 1);
+    const cssClass = aps.call(arguments, 1); // eslint-disable-line prefer-rest-params
 
     if (element.classList) {
-        const classList = element.classList;
-        util.forEach(cssClass, name => {
+        const {classList} = element;
+        snippet.forEach(cssClass, name => {
             classList.remove(name);
         });
 
@@ -183,9 +183,9 @@ export function removeClass(element) {    // eslint-disable-line
 
     const origin = getClass(element).split(/\s+/);
 
-    const newClass = util.filter(origin, name => {
-        return util.inArray(name, cssClass) < 0;
-    });
+    const newClass = snippet.filter(
+        origin, name => snippet.inArray(name, cssClass) < 0
+    );
 
     setClassName(element, newClass);
 }
@@ -199,10 +199,11 @@ export function removeClass(element) {    // eslint-disable-line
  * @function
  */
 export function getRect(element) {
-    let {top, right, bottom, left, width, height} =
-        element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
+    const {top, right, bottom, left} = rect;
+    let {width, height} = rect;
 
-    if (util.isUndefined(width) || util.isUndefined(height)) {
+    if (snippet.isUndefined(width) || snippet.isUndefined(height)) {
         width = element.offsetWidth;
         height = element.offsetHeight;
     }
@@ -219,7 +220,7 @@ export function getRect(element) {
  * @function
  */
 function upperToHyphenLower(match) {
-    return '-' + match.toLowerCase();
+    return `-${match.toLowerCase()}`;
 }
 
 /**
@@ -240,7 +241,7 @@ export function setData(element, key, value) {
 
     key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
-    element.setAttribute('data-' + key, value);
+    element.setAttribute(`data-${key}`, value);
 }
 
 /**
@@ -259,7 +260,7 @@ export function getData(element, key) {
 
     key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
-    return element.getAttribute('data-' + key);
+    return element.getAttribute(`data-${key}`);
 }
 
 /**
@@ -279,7 +280,7 @@ export function removeData(element, key) {
 
     key = key.replace(/([A-Z])/g, upperToHyphenLower);
 
-    element.removeAttribute('data-' + key);
+    element.removeAttribute(`data-${key}`);
 }
 
 /**
@@ -313,13 +314,13 @@ export function setBound(element, {top, right, bottom, left, width, height} = {}
     const args = {top, right, bottom, left, width, height};
     const newBound = {};
 
-    util.forEach(args, (value, prop) => {
-        if (util.isExisty(value)) {
-            newBound[prop] = util.isNumber(value) ? (value + 'px') : value;
+    snippet.forEach(args, (value, prop) => {
+        if (snippet.isExisty(value)) {
+            newBound[prop] = snippet.isNumber(value) ? `${value}px` : value;
         }
     });
 
-    util.extend(element.style, newBound);
+    snippet.extend(element.style, newBound);
 }
 
 const elProto = Element.prototype;
@@ -329,7 +330,7 @@ const matchSelector = elProto.matches ||
     elProto.msMatchesSelector ||
     function(selector) {
         const doc = this.document || this.ownerDocument;
-        return util.inArray(this, findAll(doc, selector)) > -1;
+        return snippet.inArray(this, findAll(doc, selector)) > -1;
     };
 
 /**
@@ -355,7 +356,7 @@ export function matches(element, selector) {
  * @function
  */
 export function closest(element, selector) {
-    var parent = element.parentNode;
+    let parent = element.parentNode;
 
     if (matches(element, selector)) {
         return element;
@@ -368,7 +369,6 @@ export function closest(element, selector) {
 
         parent = parent.parentNode;
     }
-
 
     return null;
 }
@@ -383,7 +383,7 @@ export function closest(element, selector) {
  * @function
  */
 export function find(element, selector) {
-    if (util.isString(element)) {
+    if (snippet.isString(element)) {
         return document.querySelector(element);
     }
 
@@ -401,11 +401,11 @@ export function find(element, selector) {
  * @function
  */
 export function findAll(element, selector) {
-    if (util.isString(element)) {
-        return util.toArray(document.querySelectorAll(element));
+    if (snippet.isString(element)) {
+        return snippet.toArray(document.querySelectorAll(element));
     }
 
-    return util.toArray(element.querySelectorAll(selector));
+    return snippet.toArray(element.querySelectorAll(selector));
 }
 
 /**
@@ -450,15 +450,19 @@ export function preventDefault(e) {
  * @memberof tui.dom
  * @function
  * @example
+ * //-- #1. Get Module --//
+ * var domUtil = require('tui-dom'); // node, commonjs
+ * var domUtil = tui.dom; // distribution file
+ *
+ * //-- #2. Use property --//
  * var props = ['transform', '-webkit-transform'];
  * domutil.testCSSProp(props);    // 'transform'
  */
 function testCSSProp(props) {
-    var style = document.documentElement.style,
-        i = 0,
-        len = props.length;
+    const {style} = document.documentElement;
+    const len = props.length;
 
-    for (; i < len; i += 1) {
+    for (let i = 0; i < len; i += 1) {
         if (props[i] in style) {
             return props[i];
         }
@@ -485,7 +489,7 @@ const userSelectProperty = testCSSProp([
  * @function
  */
 export function disableTextSelection(el = document) {
-    var style;
+    let style;
 
     if (SUPPORT_SELECTSTART) {
         domevent.on(el, 'selectstart', preventDefault);

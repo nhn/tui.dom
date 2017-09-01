@@ -3,8 +3,8 @@
  * @fileoverview Module for handle DOM events
  * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
  */
-import util from 'tui-code-snippet';
 import {getRect} from './domutil';
+import util from 'tui-code-snippet';
 
 const EVENT_KEY = '_feEventKey';
 
@@ -48,8 +48,8 @@ function safeEvent(element, type) {
  *  implementing some features
  */
 function memorizeHandler(element, type, keyFn, valueFn) {
-    var map = safeEvent(element, type),
-        items = map.get(keyFn);
+    const map = safeEvent(element, type);
+    let items = map.get(keyFn);
 
     if (items) {
         items.push(valueFn);
@@ -108,7 +108,7 @@ function bindEvent(element, type, handler, context) {
             memorizeHandler(element, type, handler, eventHandler);
         }
     } else if ('attachEvent' in element) {
-        element.attachEvent('on' + type, eventHandler);
+        element.attachEvent(`on${type}`, eventHandler);
         memorizeHandler(element, type, handler, eventHandler);
     }
 }
@@ -134,11 +134,10 @@ function unbindEvent(element, type, handler) {
         if ('removeEventListener' in element) {
             element.removeEventListener(type, func);
         } else if ('detachEvent' in element) {
-            element.detachEvent('on' + type, func);
+            element.detachEvent(`on${type}`, func);
         }
     });
 }
-
 
 /**
  * Bind DOM events
@@ -179,7 +178,7 @@ export function on(element, types, handler, context) {
  */
 export function once(element, types, handler, context) {
     if (util.isObject(types)) {
-        for (let [fn, type] of types) {
+        for (const [fn, type] of types) {
             once(element, type, fn, handler);
         }
 
@@ -229,7 +228,7 @@ export function off(element, types, handler) {
  * @function
  */
 export function checkMouse(element, e) {
-    var related = e.relatedTarget;
+    let related = e.relatedTarget;
 
     if (!related) {
         return true;
@@ -247,8 +246,21 @@ export function checkMouse(element, e) {
 }
 
 const primaryButton = ['0', '1', '3', '5', '7'];
-const secondaryButton = ['2' ,'6'];
+const secondaryButton = ['2', '6'];
 const wheelButton = ['4'];
+
+const isStandardMouseEvent = !_isIE8AndEarlier();
+
+/**
+ * test if browser is IE8 and earlier(IE6 or IE7)
+ * @returns {boolean} - whether browser is IE6 ~ 8 or not
+ * @private
+ */
+export function _isIE8AndEarlier() {
+    return (navigator.userAgent.indexOf('msie 8') > -1)
+        || (navigator.userAgent.indexOf('msie 7') > -1)
+        || (navigator.userAgent.indexOf('msie 6') > -1);
+}
 
 /**
  * Normalize mouse event's button attributes.
@@ -267,11 +279,22 @@ const wheelButton = ['4'];
  * @function
  */
 export function getMouseButton(mouseEvent) {
-    if (document.implementation.hasFeature('MouseEvents', '2.0')) {
+    if (isStandardMouseEvent) {
         return mouseEvent.button;
     }
 
-    let button = String(mouseEvent.button);
+    return _getMouseButtonIE8AndEarlier(mouseEvent);
+}
+
+/**
+ * Normalize return value of mouseEvent.button
+ * Make same to standard MouseEvent's button value
+ * @param {DispCEventObj} mouseEvent - mouse event object
+ * @returns {number|null} - id indicating which mouse button is clicked
+ * @private
+ */
+export function _getMouseButtonIE8AndEarlier(mouseEvent) {
+    const button = String(mouseEvent.button);
 
     if (util.inArray(button, primaryButton) > -1) {
         return 0;
@@ -298,21 +321,16 @@ export function getMouseButton(mouseEvent) {
  * @function
  */
 export function getMousePosition(position, relativeElement) {
-    let rect, clientX, clientY;
+    const isArray = util.isArray(position);
 
-    if (util.isArray(position)) {
-        clientX = position[0];
-        clientY = position[1];
-    } else {
-        clientX = position.clientX;
-        clientY = position.clientY;
-    }
+    const clientX = isArray ? position[0] : position.clientX;
+    const clientY = isArray ? position[1] : position.clientY;
 
     if (!relativeElement) {
         return [clientX, clientY];
     }
 
-    rect = getRect(relativeElement);
+    const rect = getRect(relativeElement);
 
     return [
         clientX - rect.left - relativeElement.clientLeft,

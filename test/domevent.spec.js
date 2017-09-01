@@ -1,7 +1,7 @@
-import * as domevent from '../src/domevent';
+import * as domevent from '../src/js/domevent';
 
 describe('The domevent module', function() {
-    var btn, spy;
+    let btn, spy;
 
     beforeEach(function() {
         fixture.set('<button id="test">test</button>' +
@@ -16,8 +16,8 @@ describe('The domevent module', function() {
     });
 
     it('can check mouseleave event fired by enter child element.', function() {
-        var el = {};
-        var mockEvent = {
+        const el = {};
+        let mockEvent = {
             relatedTarget: {
                 parentNode: {
                     parentNode: el
@@ -40,7 +40,6 @@ describe('The domevent module', function() {
         expect(domevent.checkMouse(el, {})).toBe(true);
     });
 
-
     it('can bind DOM event.', function() {
         domevent.on(btn, 'click', spy);
 
@@ -57,7 +56,7 @@ describe('The domevent module', function() {
     });
 
     it('unbind all event for same type name and handler.', function() {
-        var spy2 = jasmine.createSpy('spy2');
+        const spy2 = jasmine.createSpy('spy2');
 
         domevent.on(btn, 'click', spy);
         domevent.on(btn, 'click', spy);
@@ -82,9 +81,9 @@ describe('The domevent module', function() {
     });
 
     it('can calculate mouse cursor position relative by other element.', function() {
-        var relativeElement = document.querySelector('#abs');
-        var pos = relativeElement.getBoundingClientRect();
-        var mouseEvent = {
+        const relativeElement = document.querySelector('#abs');
+        const pos = relativeElement.getBoundingClientRect();
+        const mouseEvent = {
             clientY: 30,
             clientX: 30
         };
@@ -93,10 +92,28 @@ describe('The domevent module', function() {
             .toEqual([30 - pos.left, 30 - pos.top]);
     });
 
-    it('should distinguish which mouse button was clicked.', function() {
-        spyOn(document.implementation, 'hasFeature').and.returnValue(false);
-        expect(domevent.getMouseButton({button: 0})).toBe(0);
-        expect(domevent.getMouseButton({button: 2})).toBe(2);
-        expect(domevent.getMouseButton({button: 4})).toBe(1);
+    it('should distinguish which mouse button was clicked depending on browser type', function() {
+        const isStandardMouseEvent = !domevent._isIE8AndEarlier();
+
+        if (isStandardMouseEvent) {
+            expect(domevent.getMouseButton({button: 0})).toBe(0);
+            expect(domevent.getMouseButton({button: 1})).toBe(1);
+            expect(domevent.getMouseButton({button: 2})).toBe(2);
+        } else {
+            expect(domevent.getMouseButton({button: 1})).toBe(0);
+            expect(domevent.getMouseButton({button: 4})).toBe(1);
+            expect(domevent.getMouseButton({button: 2})).toBe(2);
+        }
+    });
+
+    it('should nomalize mouse event ', function() {
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 0})).toBe(0);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 1})).toBe(0);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 3})).toBe(0);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 5})).toBe(0);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 7})).toBe(0);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 2})).toBe(2);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 6})).toBe(2);
+        expect(domevent._getMouseButtonIE8AndEarlier({button: 4})).toBe(1);
     });
 });
