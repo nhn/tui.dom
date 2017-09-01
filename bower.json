@@ -1,32 +1,25 @@
 {
-  "name": "tui-dom",
-  "description": "dom utility module",
-  "authors": [
-    "NHNEnt FE Development Lab <dl_javascript@nhnent.com>"
-  ],
-  "license": "MIT",
-  "keywords": [
-    "DOM",
-    "domutil"
-  ],
-  "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    "src",
-    "demo",
-    "samples",
-    ".gitignore",
-    ".eslintrc.json",
-    "main.js",
-    "jsdoc-conf.json",
-    "karma.conf.js",
-    "package.json"
-  ],
-  "dependencies": {
-    "tui-code-snippet": "^1.2.2"
-  }
+    "name": "tui-dom",
+    "authors": [
+        "NHNent. FE Development Lab <dl_javascript@nhnent.com>"
+    ],
+    "main": [
+        "dist/tui-dom.js"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "examples",
+        "src",
+        "test",
+        "jsdoc.conf.json",
+        "karma.conf.js",
+        "webpack.config.js",
+        "package.json"
+    ],
+    "dependencies": {
+        "tui-code-snippet": "^1.2.5"
+    }
 }

@@ -1,7 +1,8 @@
 /* eslint require-jsdoc: 0 */
-import * as domutil from '../src/domutil';
+import * as domutil from '../src/js/domutil';
+import snippet from 'tui-code-snippet';
 
-var NO_SVG = tui.util.browser.msie && tui.util.browser.version < 9;
+const NO_SVG = snippet.browser.msie && snippet.browser.version < 9;
 
 function $(selector) {
     return document.querySelector(selector);
@@ -35,7 +36,7 @@ describe('domutil', function() {
     });
 
     it('can change element\'s style values.', function() {
-        var el = $('#test');
+        const el = $('#test');
         domutil.css(el, 'color', 'red');
         expect(el.style.color).toBe('red');
 
@@ -49,8 +50,8 @@ describe('domutil', function() {
     });
 
     it('can change element\'s classname.', function() {
-        var el = $('#test2');
-        var svgRect;
+        const el = $('#test2');
+        let svgRect;
 
         domutil.addClass(el, 'test-class');
         expect(el.getAttribute('class')).toBe('test-class');
@@ -75,14 +76,14 @@ describe('domutil', function() {
         expect($('#test').getAttribute('class')).toBe('b');
 
         if (!NO_SVG) {
-            var svgRect = $('#rect');
+            const svgRect = $('#rect');
             domutil.removeClass(svgRect, 'origin');
             expect(svgRect.className.baseVal).toBe('');
         }
     });
 
     it('can detect element\'s style value.', function() {
-        var rect = domutil.getRect($('#test3'));
+        const rect = domutil.getRect($('#test3'));
 
         expect(rect.top).toBe(10);
         expect(rect.right).toBe(122);
@@ -98,13 +99,11 @@ describe('domutil', function() {
     });
 
     it('can manipulate element custom data', function() {
-        var el, el2, el3;
-
         fixture.set('<div id="_test" data-test="good"></div>' +
             '<span id="_test2" data-user-id="123"></span>' +
             '<div id="_test3" data-user-name="hong"></div>');
 
-        el = $('#_test');
+        const el = $('#_test');
         expect(domutil.getData(el, 'test')).toBe('good');
         expect(domutil.getData(el, 'noexist')).toBeFalsy();
 
@@ -114,18 +113,18 @@ describe('domutil', function() {
         domutil.removeData(el, 'test');
         expect(domutil.getData(el, 'test')).toBeFalsy();
 
-        el2 = $('#_test2');
+        const el2 = $('#_test2');
         expect(domutil.getData(el2, 'userId')).toBe('123');
 
         domutil.removeData(el2, 'userId');
         expect(domutil.getData(el2, 'userId')).toBeFalsy();
 
-        el3 = $('#_test3');
+        const el3 = $('#_test3');
         expect(domutil.getData(el3, 'userName')).toBe('hong');
     });
 
     it('should set container\'s size and position.', function() {
-        var el = $('#test');
+        const el = $('#test');
 
         domutil.setBound(el, {width: 120, height: '20%', bottom: 20});
 
@@ -157,7 +156,7 @@ describe('domutil', function() {
         });
 
         it('return matched parent node recursively until meet document.', function() {
-            var li = document.getElementById('list-item');
+            let li = document.getElementById('list-item');
             expect(domutil.closest(li, '#list-item')).toBe(li);
 
             li = document.getElementById('list-item');
@@ -165,24 +164,22 @@ describe('domutil', function() {
         });
 
         it('reutrn null when no closest parent node.', function() {
-            var li = document.getElementById('list-item');
+            const li = document.getElementById('list-item');
             expect(domutil.closest(li, '#notexist')).toBe(null);
         });
 
         it('work with no rendered element.', function() {
-            var div, li;
-
-            div = document.createElement('div');
+            const div = document.createElement('div');
             div.setAttribute('id', 'good');
             div.innerHTML = '<ul><li id="testtest">123</li></ul>';
 
-            li = div.querySelector('#testtest');
+            const li = div.querySelector('#testtest');
 
             expect(domutil.closest(li, '#good')).toBe(div);
         });
 
         it('return itself when no parent node.', function() {
-            var div = document.createElement('div');
+            const div = document.createElement('div');
             expect(domutil.closest(div, '#good')).toBe(null);
         });
     });
@@ -197,7 +194,7 @@ describe('domutil', function() {
     });
 
     it('should insert element to next of another element.', function() {
-        var li = document.createElement('li');
+        const li = document.createElement('li');
 
         fixture.set('<ul><li id="list-1"></li><li id="list-2"></li></ul>');
 
@@ -208,7 +205,7 @@ describe('domutil', function() {
 
     it('should insert element to next of another element. even if anoter' +
             'element is last child of parent node.', function() {
-        var li = document.createElement('li');
+        const li = document.createElement('li');
 
         fixture.set('<ul><li id="list-1"></li><li id="list-2"></li></ul>');
 
@@ -221,10 +218,10 @@ describe('domutil', function() {
         fixture.set('<div id="prevent-selection"></div>');
 
         expect(function() {
-          domutil.disableTextSelection($('#prevent-selection'));
-          domutil.enableTextSelection($('#prevent-selection'));
-          domutil.disableTextSelection();
-          domutil.enableTextSelection();
+            domutil.disableTextSelection($('#prevent-selection'));
+            domutil.enableTextSelection($('#prevent-selection'));
+            domutil.disableTextSelection();
+            domutil.enableTextSelection();
         }).not.toThrowError();
     });
 
