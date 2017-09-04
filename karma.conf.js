@@ -83,12 +83,12 @@ function setConfig(defaultConfig, server) {
                 {
                     type: 'cobertura',
                     subdir: browser => `report-cobertura/${browser}`,
-                    file: 'cobertura.txt'
+                    file: 'cobertura.xml'
                 }
             ]
         };
         defaultConfig.junitReporter = {
-            outputDir: 'report',
+            outputDir: 'report/',
             suite: ''
         };
     } else {
@@ -150,7 +150,7 @@ module.exports = function(config) {
         singleRun: true
     };
 
-    /* eslint-disable */
+    /* global process:true */
     setConfig(defaultConfig, process.env.KARMA_SERVER);
     config.set(defaultConfig);
 };
