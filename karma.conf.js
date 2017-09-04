@@ -83,12 +83,12 @@ function setConfig(defaultConfig, server) {
                 {
                     type: 'cobertura',
                     subdir: browser => `report-cobertura/${browser}`,
-                    file: 'cobertura.txt'
+                    file: 'cobertura.xml'
                 }
             ]
         };
         defaultConfig.junitReporter = {
-            outputDir: 'report',
+            outputDir: 'report/jnit/',
             suite: ''
         };
     } else {
