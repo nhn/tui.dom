@@ -88,7 +88,7 @@ function setConfig(defaultConfig, server) {
             ]
         };
         defaultConfig.junitReporter = {
-            outputDir: 'report/jnit/',
+            outputDir: 'report/',
             suite: ''
         };
     } else {
@@ -150,7 +150,7 @@ module.exports = function(config) {
         singleRun: true
     };
 
-    /* eslint-disable */
+    /* global process:true */
     setConfig(defaultConfig, process.env.KARMA_SERVER);
     config.set(defaultConfig);
 };
