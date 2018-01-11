@@ -1,5 +1,4 @@
 # TOAST UI Dom library
-
 A module for manipulating the DOM or control the DOM events.
 
 ## Feature
@@ -17,7 +16,7 @@ A module for manipulating the DOM or control the DOM events.
 
 ## Dependency
 
-* [tui-code-snippet](https://github.com/nhnent/tui.code-snippet): ^1.2.5
+* [tui-code-snippet](https://github.com/nhnent/tui.code-snippet) >=1.2.5
 
 ## Test environment
 ### PC
