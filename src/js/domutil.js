@@ -86,6 +86,7 @@ function setClassName(element, cssClass) {
 
     if (snippet.isUndefined(element.className.baseVal)) {
         element.className = cssClass;
+
         return;
     }
 
@@ -108,6 +109,7 @@ export function addClass(element) {
         snippet.forEach(cssClass, name => {
             classList.add(name);
         });
+
         return;
     }
 
@@ -143,6 +145,7 @@ export function toggleClass(element) {
         snippet.forEach(cssClass, name => {
             element.classList.toggle(name);
         });
+
         return;
     }
 
